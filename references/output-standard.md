@@ -52,8 +52,10 @@ Use exactly one per row:
   of a human.
 - Separate what was observed from what was inferred. An inference never enters
   a findings table labelled `export`.
-- Never state a per-placement cost or a channel split as fact. Both are
-  unavailable in PMax reporting; both are estimates when they appear at all.
+- Never state a per-placement cost as fact. That is genuinely unavailable, so
+  any figure is an estimate and must be labelled as one.
+- The channel split is a different case: it is reportable with cost since
+  2025. Never say it cannot be seen. Ask for the channel performance report.
 - Never recommend scaling before the conversion signal has been assessed.
   PMax amplifies whatever it is fed.
 - Never report a period-over-period delta on a campaign below

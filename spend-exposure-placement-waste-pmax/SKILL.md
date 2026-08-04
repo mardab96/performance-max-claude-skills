@@ -25,10 +25,12 @@ the single most common suspicion about PMax.
 
 ## Analysis workflow
 
-1. State the limit before doing anything else, so nothing downstream reads as
-   more certain than it is: Google reports impressions per placement for PMax,
-   never cost and never conversions (`thresholds.md`, Reporting limits). This
-   skill ranks suspicion, not spend.
+1. State the limit precisely, because it is narrower than most people think.
+   Per PLACEMENT, Google reports impressions only, never cost and never
+   conversions, so placement-level waste can be ranked but not priced. Per
+   CHANNEL, cost IS available since 2025 (`thresholds.md`, Reporting limits),
+   so "how much is going to display and video" is answerable and should be
+   answered rather than refused. Ask for the channel performance report.
 2. Rank placements by impression volume. Mark each as plausible, questionable
    or implausible for the advertiser's actual audience.
 3. Cluster the questionable ones: mobile game apps, made-for-advertising
@@ -56,7 +58,10 @@ the single most common suspicion about PMax.
 - Content exclusions already at the strictest setting and waste still visible
   -> `investigate`, and say plainly that PMax control ends here; the remaining
   option is campaign type, not campaign settings.
-- No placement report available -> `needs_data`, and do not guess a split.
+- No placement report available -> `needs_data`, and do not guess.
+- User asks how much budget goes to display or video -> answer it from the
+  channel performance report. Refusing this question was correct before 2025
+  and is now simply wrong.
 
 ## Output format
 
@@ -78,10 +83,13 @@ Reading: three of the top four families have no plausible procurement
 audience, together about 20% of impressions. Cost is unknown and unknowable
 from this report.
 
-Output: ranked table, then "app category exclusions, `do_now`" and
-"parked-domain exclusion list, `approval_needed`". Stated clearly: the saving
-cannot be quantified before the change, only observed after it, by comparing
-CPA over a window of at least `learning.judgement_window`.
+Output: ranked table, then "app category exclusions, `do_now`". The
+parked-domain family sits at 2.9% of impressions, under the 5% bar, so it is
+`monitor` rather than an exclusion recommendation; saying so is the difference
+between a rule and a hunch. Stated clearly: per-placement saving cannot be
+quantified before the change, only observed after it. What CAN be quantified
+now is the display and video share of spend, from the channel performance
+report, and that should be pulled before any exclusion is approved.
 
 ## Guardrails
 

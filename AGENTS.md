@@ -43,7 +43,9 @@ docstring names the skill it belongs to.
 These skills exist because PMax hides things. The value is in saying what
 cannot be seen, so:
 
-- Never state a per-placement cost or a channel split as fact.
+- Never state a per-placement cost as fact; that one really is unavailable.
+- Do NOT tell a user the channel split is unavailable. It has been reportable
+  with cost since 2025; ask for the channel performance report instead.
 - Never present a search-category share as exact. The source is aggregated.
 - Never report a period-over-period delta below `conversion.volume_floor`.
 - Never attribute a movement before `learning.duration` has passed.

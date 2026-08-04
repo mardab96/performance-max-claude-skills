@@ -32,10 +32,13 @@ wants to know why excluding the brand did not change anything.
 2. List every brand variant a real person might type. Misspellings, missing
    spaces, plurals, the .com typed as a word, the old company name. Compare
    against the applied list.
-3. State the inventory limit plainly: brand exclusions apply to Search and
-   Shopping inventory. Display, video and Discover serving is not covered, so
-   branded-looking impressions can persist and that is expected, not a
-   failure.
+3. State the inventory scope precisely: brand exclusions apply to Search,
+   Shopping AND YouTube search inventory. Display, Discover and non-search
+   YouTube serving is not covered, so some branded-looking impressions persist
+   and that is expected. Getting this wrong in the other direction is worse:
+   a branded YouTube SEARCH impression after an exclusion is a real failure of
+   the list, and calling it expected tells the user to stop looking at a live
+   leak.
 4. Check whether branded categories still carry meaningful conversion weight
    after the exclusion window. Compare against `brand.overlap_flag`.
 5. Separate two different failures: exclusions missing variants, versus
@@ -49,6 +52,11 @@ wants to know why excluding the brand did not change anything.
 
 - A plausible variant missing from the list -> `do_now` on adding it. Cheap,
   reversible, no learning cost.
+- Brand terms still appearing and campaign-level negative keywords are not in
+  use -> `do_now` on those instead. PMax has supported campaign-level negatives
+  since 2025 and they are the more direct tool for specific terms; chasing
+  misspellings through a brand exclusion list alone is the weaker of the two
+  available fixes.
 - Branded categories still above `brand.overlap_flag` with a complete variant
   list -> the remaining exposure is in uncovered inventory; `monitor`, and
   stop treating it as a leak.
@@ -82,8 +90,10 @@ exclusions are largely doing their job.
 
 Output: "Incomplete, but mostly working." Add the two missing variants,
 `do_now`. Re-read at the six-week mark. Note explicitly that some branded
-impressions will never disappear because display and video serving is outside
-what a brand exclusion reaches.
+impressions will never disappear because display, Discover and non-search
+YouTube serving sit outside what a brand exclusion reaches, but that anything
+branded appearing in YouTube SEARCH would be a real gap and worth checking
+separately.
 
 ## Guardrails
 

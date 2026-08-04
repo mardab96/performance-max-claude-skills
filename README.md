@@ -39,7 +39,18 @@ scaling.
 
 ## How to install
 
-### Claude Code
+### You do not need Claude Code
+
+Start here, because the install below is the slowest way in and most people do
+not need it. **Every skill is a markdown file and a markdown file is a prompt.**
+Open any `SKILL.md` on GitHub, copy the whole thing, paste it into Claude,
+ChatGPT or whatever you already use, then paste your exported data underneath.
+That is 90% of the value with none of the setup.
+
+The only parts that genuinely need a terminal are the two Python scripts, and
+only two of the fifteen skills call them.
+
+### Claude Code, for the full install
 
 ```bash
 git clone https://github.com/mardab96/performance-max-claude-skills.git
@@ -48,12 +59,20 @@ cp -r performance-max-claude-skills/*-pmax \
       performance-max-claude-skills/weekly-pmax-readout \
       performance-max-claude-skills/references \
       performance-max-claude-skills/scripts \
+      performance-max-claude-skills/examples \
+      performance-max-claude-skills/AGENTS.md \
       ~/.claude/skills/
 ```
 
-The `references` and `scripts` folders are not optional. Every skill cites
-`../references/thresholds.md` for its numbers, and two skills call a script.
-Copying only the skill folders leaves those paths broken.
+Four of those lines are not optional and it is worth knowing why:
+
+- `references` holds every number the skills cite. Without it the thresholds
+  do not resolve.
+- `scripts` is called by two skills.
+- `AGENTS.md` holds how the skills compose, including the rule that a failed
+  conversion signal audit drops every later verdict to low confidence. Without
+  it you have fifteen prompts rather than a system.
+- `examples` holds the sample exports the worked example runs against.
 
 Start a new Claude Code session afterwards. Skills activate on their own when
 the conversation matches their description.
@@ -83,8 +102,8 @@ an issue.
 - They will not log into your Google Ads account.
 - They will not change campaigns, budgets, feeds, exclusions or conversion
   actions.
-- They will not tell you a per-placement cost or a channel split as if it were
-  fact, because Google does not report either one for PMax.
+- They will not tell you a per-placement cost as if it were fact, because
+  Google reports impressions per placement and nothing else.
 - They will not read a trend on a campaign too small to carry one. They will
   tell you the sample is too small instead.
 

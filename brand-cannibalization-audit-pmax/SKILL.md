@@ -16,30 +16,38 @@ whether they are bidding on the same demand.
 
 ## Required input
 
-- PMax Insights, Search categories tab (export or screenshot).
+- The PMax search terms report, if available. This is the preferred source:
+  it carries actual triggering queries. Ask for it first.
+- PMax Insights, Search categories tab, as the fallback when the search terms
+  report is not available.
 - Brand Search campaign: spend, conversions, CPA, over the same date range.
 - Total PMax spend and conversions for that range.
 - The brand name and any obvious misspellings or variants.
 
-If the Search categories tab is empty or unavailable, stop and say so. Every
-number in this skill derives from it.
+If neither source is available, stop and say so. Every number in this skill
+derives from one of them, and which one it came from changes how firm the
+answer is. Say which you used, every time.
 
 ## Analysis workflow
 
 1. Confirm the date ranges match across all inputs. A mismatch invalidates
    every comparison below; say so and stop rather than adjusting silently.
-2. Read the Search categories list and mark every category that contains the
-   brand name or a recognisable variant. Categories are aggregated and
-   conversion-weighted, so the resulting share is an upper bound, never an
-   exact figure (`thresholds.md`, Reporting limits).
-3. Sum the conversion share sitting in branded categories. Express it as a
-   range, not a point value.
+2. If you have the search terms report, mark branded queries and sum their
+   actual conversions. This gives a real number, not an estimate, and the rest
+   of the skill gets firmer accordingly.
+3. If you only have Search categories, mark branded categories and be honest
+   about what that gives you: a count of category LABELS, not a conversion
+   share. Nine branded categories out of thirty-one does not mean 29% of
+   conversions, because one category can carry most of the volume. Report the
+   label count as a label count, give any conversion figure as a wide range,
+   and say the range comes from counting labels.
 4. Compare brand Search CPA against blended PMax CPA. A brand campaign buying
    the same demand materially cheaper is the whole finding.
 5. Check `brand.overlap_flag` and `brand.cpa_gap_flag`. Either one crossing is
    a case; both crossing is a strong case.
 6. Decide what the exclusion would actually cost. Brand exclusions in PMax
-   apply to Search and Shopping inventory, so reported PMax ROAS falls after
+   apply to Search, Shopping and YouTube search inventory, so reported PMax
+   ROAS falls after
    they go on. State that plainly: the drop is the reporting getting honest,
    not the account getting worse.
 
@@ -69,19 +77,24 @@ Then `What this could not see`, `Missing data`, `Approval gates`.
 ## Practical example
 
 Input: PMax spend 42,000, 610 conversions, blended CPA 68.85. Brand Search
-spend 3,100, 148 conversions, CPA 20.95. Search categories show 9 of 31
-categories carrying the brand name.
+spend 3,100, 148 conversions, CPA 20.95. No search terms report supplied;
+Search categories show 9 of 31 categories carrying the brand name.
 
-Reading: branded categories are roughly 29% of the list, above
-`brand.overlap_flag`. Brand CPA is 30% of blended PMax CPA, below
-`brand.cpa_gap_flag`. Both flags cross.
+Reading: 9 of 31 is a count of category labels, not a conversion share. It
+crosses `brand.overlap_flag` on the label test, so there is a case to answer,
+but the size of it is genuinely unknown from this input. One branded category
+could hold most of the branded volume or almost none. Brand CPA at 20.95 is
+30% of blended PMax CPA, below `brand.cpa_gap_flag`, and that comparison is
+solid because both figures are measured.
 
-Output: "Cannibalization case: strong." Estimated 120-180 PMax conversions are
-branded (range, because categories are conversion-weighted and aggregated). At
-the CPA difference of 47.90, that is roughly 5,700-8,600 of spend buying
-demand the brand campaign already owned. Recommendation: brand exclusions,
-`approval_needed`, with the note that reported PMax ROAS will fall and total
-account CPA should improve.
+Output: "Cannibalization case: confirmed in kind, unknown in size." The cheap
+comparison is real: brand demand is being bought at 20.95 in one campaign and
+somewhere near 68.85 in the other. The share of PMax conversions that is
+branded cannot be stated from category labels, so the next step is the search
+terms report, which turns this from an estimate into a number.
+Recommendation: pull the search terms report, `do_now`, then re-run. Brand
+exclusions stay `approval_needed` and should wait for the real figure, with
+the note that reported PMax ROAS will fall once they go on.
 
 ## Guardrails
 

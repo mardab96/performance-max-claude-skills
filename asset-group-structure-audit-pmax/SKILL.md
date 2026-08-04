@@ -29,7 +29,7 @@ about to add a sixth group to a campaign that cannot feed the five it has.
    usually a naming exercise, not a structure.
 3. Check conversion volume per group against `asset_group.volume_floor`.
    Groups below it cannot be optimised, only consolidated or fed more budget.
-4. Check asset coverage against `asset.coverage_floor`. A group missing video
+4. Check asset coverage against `asset.required_minimum`. A group missing video
    gets an auto-generated one, which is why some groups look cheap and
    convert badly.
 5. Count groups against total campaign conversions. More groups than the
@@ -47,7 +47,7 @@ about to add a sixth group to a campaign that cannot feed the five it has.
 - Mixed theme (the "and" test fails) -> `approval_needed` on splitting, and
   state the cost: the new group starts learning from scratch
   (`learning.duration`).
-- Coverage below `asset.coverage_floor` -> `do_now` on assets before any
+- Coverage below `asset.required_minimum` -> `do_now` on assets before any
   structural change. Structure cannot fix a group Google has nothing to build
   with.
 - More than roughly one asset group per `asset_group.volume_floor` worth of
