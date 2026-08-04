@@ -58,9 +58,15 @@ whether it was the market, the season or the last edit.
 - Stable for at least `learning.judgement_window`, CPA at or under target ->
   `approval_needed` on a budget step of `budget.step`, then hold for
   `budget.step_wait`.
-- Below `budget.starve_floor` -> the answer to "why is it not learning" is the
-  budget, not the structure. `approval_needed` on a step up, or on pausing the
-  campaign if the budget cannot go there.
+- Below `budget.starve_floor` AND losing impressions to budget -> the answer to
+  "why is it not learning" is the budget. `approval_needed` on a step up, or on
+  pausing the campaign if the budget cannot go there.
+- Below `budget.starve_floor` and NOT losing impressions to budget -> the
+  campaign is not spending what it already has, so more budget changes nothing.
+  Say that instead, and look at the target.
+- A freeze and the starve floor both firing -> both, in that order
+  (`AGENTS.md`, precedence rule 6). Do nothing now; name budget as the lever
+  for when the window opens. Neither rule cancels the other.
 - Below `conversion.volume_floor` -> refuse the trend read entirely and say
   why. Weekly CPA on a campaign with four conversions a week is not a signal.
 

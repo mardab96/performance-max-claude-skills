@@ -22,20 +22,25 @@ about to add a sixth group to a campaign that cannot feed the five it has.
 
 ## Analysis workflow
 
-1. For each asset group, write down in one sentence what it is supposed to
+1. Run the coverage check first, or confirm it has been run. Coverage outranks
+   structure (`AGENTS.md`, precedence rule 4), and a group below
+   `asset.required_minimum` is a coverage finding rather than a structural one,
+   even when it looks like a structural problem. Reclassify it before counting
+   groups.
+2. For each asset group, write down in one sentence what it is supposed to
    sell. If that sentence needs an "and", the group is mixed
    (`asset_group.theme_purity`).
-2. Check the landing page per group. Two groups pointing at the same page is
+3. Check the landing page per group. Two groups pointing at the same page is
    usually a naming exercise, not a structure.
-3. Check conversion volume per group against `asset_group.volume_floor`.
+4. Check conversion volume per group against `asset_group.volume_floor`.
    Groups below it cannot be optimised, only consolidated or fed more budget.
-4. Check asset coverage against `asset.required_minimum`. A group missing video
+5. Check asset coverage against `asset.required_minimum`. A group missing video
    gets an auto-generated one, which is why some groups look cheap and
    convert badly.
-5. Count groups against total campaign conversions. More groups than the
+6. Count groups against total campaign conversions. More groups than the
    conversion volume can support is fragmentation, and it is the same defect
    as running too many campaigns.
-6. Name the single structural change most likely to move performance. One, not
+7. Name the single structural change most likely to move performance. One, not
    a list. A list of five structural changes is how accounts get churned.
 
 ## Decision rules

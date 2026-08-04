@@ -31,6 +31,27 @@ output changes an earlier verdict:
 - Feed blockers found -> product spend concentration is reading a partial
   catalogue, and its shares are wrong until the blockers clear.
 
+## When two rules fire at once
+
+Rules collide. Without a stated order, two people resolve the collision
+differently and the pack's whole promise fails. This is the order, highest
+first. If a collision is not on this list, resolve it by the same principle:
+**a rule about whether the data can be read outranks a rule about what to do
+with it.**
+
+| # | Condition | Beats | Because |
+|---|---|---|---|
+| 1 | Conversion signal audit failed | everything | The campaign is optimising toward the wrong thing, so every other finding is about the wrong campaign. Verdicts drop to `low` and scaling is withdrawn. |
+| 2 | Campaign below `conversion.volume_floor` | any period-over-period read | Small numbers move for no reason. Refuse the comparison rather than qualifying it. |
+| 3 | Learning event inside `learning.duration` | any attribution | You cannot say what caused a movement the campaign is still absorbing. Give the date it becomes readable. |
+| 4 | Below `asset.required_minimum`, no feed | any structural recommendation | Structure cannot fix a group that cannot serve. Note: `asset.working_target` does NOT block anything. |
+| 5 | Feed blockers found | any share of spend or products | The shares describe a partial catalogue until the blockers clear. |
+| 6 | Freeze (rule 3) and `budget.starve_floor` both fire | neither wins outright | The freeze wins on timing and the starve floor wins on direction: do nothing now, and when the window opens, budget is the lever. Say both. |
+| 7 | `do_now` on a fix and `monitor` on a window | the `monitor` | A cheap, reversible fix with no learning cost may proceed during a window; the window blocks the VERDICT, not the housekeeping. Say which you are doing. |
+
+Rule 7 is the one people get wrong most often. "Add the missing brand variant"
+during a six-week window is fine. "Conclude the exclusions are working" is not.
+
 ## Numbers
 
 Every threshold lives in `references/thresholds.md` and nowhere else. Cite the

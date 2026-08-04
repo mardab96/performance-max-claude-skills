@@ -30,8 +30,12 @@ out loud in the output rather than letting the reader assume otherwise.
    than doing this by eye; it owns the arithmetic so two runs on the same
    export cannot disagree about the numbers. The decision rules below stay
    here.
-2. Check `listing_group.spend_concentration`. Concentration alone is not a
-   defect; concentration with weak returns is.
+2. Check `listing_group.spend_concentration`, then check the health of the top
+   block SEPARATELY, whether or not the flag fired. The threshold has an AND in
+   it, so it stays silent when the catalogue share is above 20%, and a silent
+   flag is not a clean bill of health. Count the zero-conversion products inside
+   the top block and their spend. A block that holds most of the budget while a
+   quarter of it never converted is a finding the flag will never give you.
 3. Split the top spenders into three buckets: beating target, near target,
    below target.
 4. Find the zero bucket separately, using `listing_group.zero_tail_flag`.
@@ -52,6 +56,10 @@ out loud in the output rather than letting the reader assume otherwise.
 - Concentration above `listing_group.spend_concentration` with top products
   beating target -> `ignore`. This is a working campaign and splitting it
   usually costs more than it returns.
+- Top block crossing `listing_group.top_block_dead_weight` -> `investigate`,
+  and report it even when the concentration flag is off.
+  Report both facts in the same sentence: the flag is off, and this much of the
+  block is dead weight.
 - Concentration above the same threshold with top products below target ->
   `investigate` the feed mix. The campaign is spending where the feed lets it,
   not where the money is.
@@ -78,7 +86,9 @@ ROAS. Two run 90% and 140% and cost 1,500 and 1,400. That leaves 6,960 across
 the remaining 168 products, of which 23 have spent between 180 and 280 each
 with zero conversions, totalling 5,290.
 
-Reading: 12 of 180 products is 6.7% of the catalogue holding 71% of spend, so
+Reading: the 180 rows are spending products, not the catalogue (see
+Denominators in `thresholds.md`); the full feed is larger and this share does
+not describe it. 12 of 180 spending products is 6.7%, holding 71% of spend, so
 both halves of `listing_group.spend_concentration` are crossed. Ten of the
 twelve beat target, so the concentration itself is healthy and no split is
 recommended. `listing_group.zero_tail_flag` sits at 3 x 60 = 180, and all 23
