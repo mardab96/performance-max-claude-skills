@@ -48,10 +48,15 @@ land on the same label.
 - **`high`** - the finding comes from an export, the period clears
   `conversion.volume_floor`, no learning event sits inside it, and no
   denominator had to be assumed. All four.
-- **`medium`** - one of those four is missing. Say which one in the row.
-- **`low`** - two or more are missing, OR the conversion signal audit failed,
-  OR the campaign is under `conversion.volume_floor`. Any one of these three is
-  enough on its own.
+- **`medium`** - exactly one of those four is missing, and it is NOT the
+  volume one. Say which in the row.
+- **`low`** - two or more missing, OR the campaign is under
+  `conversion.volume_floor` (even if that is the only thing missing), OR the
+  conversion signal audit failed. Any one of these is enough on its own.
+
+The volume condition is deliberately listed in both directions so there is no
+overlap: under the floor is always `low`, never `medium`, whatever else is in
+place.
 
 A row labelled `high` with an assumed denominator is the most common way this
 scale gets abused. If you had to decide what a number was measured against,

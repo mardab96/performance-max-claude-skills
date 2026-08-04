@@ -102,20 +102,34 @@ readable.
 `budget.starve_floor` fires on the ratio: at a target CPA of 70 the floor is
 700/day and the campaign sits at 400. But the ratio is only half the test, and
 the other half fails here. At roughly 90 conversions a month and a CPA near 94,
-this campaign spends about 8,500 a month, which is 280 a day against a budget of
-400. It is using two thirds of what it already has, so it is not
-budget-constrained and no impression share is being lost to budget. The
-starvation reading does not stand. So only one rule actually fires here, not
+this campaign spends about 8,500 a month, which is 280 a day against a budget
+of 400, so it is using roughly two thirds of what it has.
+
+That is suggestive and it is not the required datum. Daily pacing varies and
+Google may spend up to twice the daily budget on a given day, so a monthly
+ratio cannot establish daily impression share lost to budget. The skill's own
+required input names that figure and says the rule cannot fire without it, and
+it was not supplied here. So the honest output is that the starvation reading
+is `needs_data`, with the monthly ratio noted as a reason to expect it will not
+hold. Inventing the corroboration from an unrelated ratio would be the exact
+move this skill tells other people not to make. So only one rule actually fires here, not
 two: the freeze. The starve floor looked like it fired on the ratio and then
 failed its corroboration, which is not the same as a collision. `AGENTS.md`
 precedence rule 6 resolves two rules that both genuinely fire; it does not
 promote a flag that failed its own second half.
 
-Output: "Freeze, then look at the target." No further changes until 30 August, which is
-`learning.judgement_window` from the 19 July reset. One date, not a range: the
-threshold is six weeks and the campaign does not clear
-`conversion.volume_floor` by 3x, so the recalibration to four weeks does not
-apply. Then re-read. If CPA has not returned toward 70, the
+Output: "Freeze, then look at the target." No further changes until 16 August.
+Working: the last reset was 19 July. `learning.judgement_window` defaults to six
+weeks, but it recalibrates to four when the campaign clears
+`conversion.volume_floor` by 3x or more. The floor is 30 primary conversions
+per 30 days and this campaign runs about 90, which is exactly 3x, and the rule
+says "or more", so it qualifies and the window is four weeks. 19 July plus four
+weeks is 16 August.
+
+Say the working out, not just the date, whenever a recalibration fires and
+especially when the account sits exactly on the boundary as this one does.
+A reader who checks 90 against 30 and gets a different answer from yours will
+trust nothing else in the output. Then re-read. If CPA has not returned toward 70, the
 conversion goal change is the suspect, not the budget.
 
 Then the budget, and the answer is not "raise it". The campaign is not

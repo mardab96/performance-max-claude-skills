@@ -119,6 +119,14 @@ def analyse(rows, target_cpa=None, target_roas=None):
         cumulative += r["cost"]
         top_block.append(r)
 
+    # listing_group.top_block_dead_weight: zero-conversion products INSIDE the
+    # top block. Checked separately from the concentration flag, because that
+    # flag has an AND in it and goes silent on ordinary catalogue shapes while
+    # the block quietly carries dead products.
+    block_dead = [r for r in top_block if r["conversions"] == 0]
+    block_dead_cost = sum(r["cost"] for r in block_dead)
+    block_dead_share = (block_dead_cost / cumulative) if cumulative else 0.0
+
     zero_tail = [r for r in rows if r["conversions"] == 0 and r["cost"] > 0]
     # listing_group.zero_tail_flag needs a target CPA. With only a ROAS target
     # it cannot be computed, and the difference between "computed, found none"
@@ -157,6 +165,16 @@ def analyse(rows, target_cpa=None, target_roas=None):
                 100 * len(top_block) / len(rows),
                 100 * cumulative / total_cost,
             )
+        ),
+        "top_block_dead_products": len(block_dead),
+        "top_block_dead_cost": round(block_dead_cost, 2),
+        "top_block_dead_share_pct": round(100 * block_dead_share, 1),
+        "top_block_dead_weight_flag": block_dead_share > 0.20,
+        "top_block_dead_weight_basis": (
+            "listing_group.top_block_dead_weight: %d of the %d top-block products "
+            "never converted, holding %.2f (%.1f%% of the block). Flag fires above "
+            "20%%. Reported whether or not concentration_flag is set."
+            % (len(block_dead), len(top_block), block_dead_cost, 100 * block_dead_share)
         ),
         "zero_conversion_products": len(zero_tail),
         "zero_conversion_cost": round(sum(r["cost"] for r in zero_tail), 2),

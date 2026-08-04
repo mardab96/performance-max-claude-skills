@@ -173,6 +173,21 @@ def main():
 
     series, used_col = load(args.csv_path, args.metric)
     result = analyse(series, change)
+    if result["baseline_periods_discarded"]:
+        print(
+            "NOTE: %d pre-change period(s) discarded. The baseline is fixed at %d "
+            "so the detection band cannot widen with however much history was "
+            "pasted in." % (result["baseline_periods_discarded"], BASELINE_PERIODS),
+            file=sys.stderr,
+        )
+    elif result["baseline_periods_used"] < BASELINE_PERIODS:
+        print(
+            "WARNING: only %d pre-change period(s) supplied against a required %d. "
+            "The detection band is narrower than intended and this run is more "
+            "likely to report a movement that is not there."
+            % (result["baseline_periods_used"], BASELINE_PERIODS),
+            file=sys.stderr,
+        )
     result["metric_column"] = used_col
     json.dump(result, sys.stdout, indent=2)
     print()

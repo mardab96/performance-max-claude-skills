@@ -51,8 +51,9 @@ someone is about to add a fifth audience signal to fix targeting.
 
 - No first-party signal on any asset group -> `do_now` on adding a converter
   list. This is the highest-leverage change available in the whole skill.
-- Customer list below Google's stated match minimum -> `investigate`; the
-  signal is inactive regardless of what the UI shows.
+- Customer list below the Customer Match minimum (`thresholds.md`, Mechanism
+  claims) -> `investigate`; the signal is inactive regardless of what the
+  interface shows.
 - Search theme absent from Search categories after at least
   `learning.judgement_window` -> `monitor` or remove; it is not landing.
 - Remarketing signal on a campaign carrying a new-customer goal ->

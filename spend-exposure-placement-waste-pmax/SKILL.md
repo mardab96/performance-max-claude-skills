@@ -89,7 +89,9 @@ conversions per placement), `Missing data`, `Approval gates`.
 
 Input: 2.1M impressions total. Top placements include a word-puzzle app
 (214k), a video-sharing app (156k), a recipe site (88k) and a set of parked
-domains (61k). The advertiser sells industrial fittings to procurement teams.
+domains (61k, four sites: two parked registrar pages and two link farms, listed
+because a group must name its members). The advertiser sells industrial fittings
+to procurement teams.
 
 Reading: the puzzle app is 10.2% of placement-report impressions and the
 video app 7.4%, so both clear `placement.waste_flag` on their own. The recipe

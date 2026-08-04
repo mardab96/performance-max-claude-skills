@@ -67,9 +67,11 @@ above the 20% half, so the flag does not fire and no split is recommended.
 But the flag not firing is not the same as the concentration being healthy, and
 this is where the AND in the threshold can hide a finding. Checking the health
 half separately: of the 24 products in the top block, 10 have zero conversions
-and hold 7,767 of spend, which is 28.3% of the block. So the block is not
-simply carrying the campaign. Report both: the flag is off, and more than a
-quarter of the top block is dead weight.
+and hold 7,767 of spend, which is 28.3% of the block. That crosses
+`listing_group.top_block_dead_weight`, which fires above 20% and is reported
+whether or not the concentration flag is set. So the block is not simply
+carrying the campaign. Report both: the concentration flag is off, and the dead
+weight flag is on.
 
 What fires cleanly is the tail: 23 products crossing
 `listing_group.zero_tail_flag`, together 15,138, which is 39.4% of campaign
@@ -185,7 +187,7 @@ campaign by how it is built, so the percentages describe the part of the
 catalogue that is running, not all of it. We will come back to you on that by
 the end of the month."
 
-Word count: 148, against the skill's 200-word limit. Three quantities the
+Word count: 176, against the skill's 200-word limit. Three quantities the
 reader has to hold: how much of the reported sales figure is real, how much
 went to products that never sold, and how many products are excluded. The
 supporting figures inside each of those do not count as separate things to
