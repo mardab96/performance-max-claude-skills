@@ -94,8 +94,10 @@ Each entry is tagged:
 - `[heuristic]` - a practitioner starting point. Recalibrate against the
   account's own history, and say which one you moved and why.
 
-If a skill gives you a number without one of these tags, that is a bug. Open
-an issue.
+Skills cite the key, not the value, so you will not see tags inside a skill.
+Follow the key into `references/thresholds.md` and the tag is there. If you find
+a bare number in a skill's decision rules with no key behind it, that is a bug.
+Open an issue.
 
 ## What these skills will not do
 

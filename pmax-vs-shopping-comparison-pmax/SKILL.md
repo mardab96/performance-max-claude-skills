@@ -84,7 +84,8 @@ users most often omit. Without it, the central question cannot be answered.
   say why.
 - A pause test is proposed -> `approval_needed`, and the output must price two
   things the test costs: restarting the paused campaign is a status change,
-  which is a learning event (`learning.reset_triggers`), and the test window
+  which we read as a learning event though Google does not list it as one
+  (`learning.reset_triggers`), and the test window
   sits in a season. A six-week pause running into Q4 is a different decision
   from the same pause in February.
 

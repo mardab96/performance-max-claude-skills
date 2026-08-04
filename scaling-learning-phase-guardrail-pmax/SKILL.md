@@ -81,8 +81,10 @@ Input: budget raised from 200 to 400/day on 14 July. Conversion goal changed
 about 90 conversions/month.
 
 Reading: the budget doubled, which is far above `budget.step`, and five days
-later the conversion goal changed, which is a learning event
-(`learning.reset_triggers`). The CPA rise starts after both. Only 16 days have
+later the conversion goal changed. Treat that as a learning event, while
+saying where the claim comes from: Google names a "composition change" and we
+read a conversion goal change as one (`learning.reset_triggers`). It is our
+reading, not Google's wording, and the freeze below rests on it. The CPA rise starts after both. Only 16 days have
 elapsed, well under `learning.judgement_window`, so the campaign is not yet
 readable.
 

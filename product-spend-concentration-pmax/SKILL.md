@@ -88,9 +88,16 @@ a third of target, not half.
 
 Output: "A 23-product zero tail and two weak top sellers are costing 8,190 at
 below-target return, which is 34% of the campaign." Table, then
-`approval_needed` on excluding the tail (5,290), `investigate` on the two top
-spenders (2,900), checking price competitiveness before excluding, because a
-140% ROAS product on 60% margin may still be profitable.
+`approval_needed` on excluding the tail (5,290) and on excluding the two top
+spenders (2,900).
+
+Both top spenders are losses, and this is where margin turns a soft verdict
+into a hard one. At 60% gross margin, breakeven is a ROAS of 167%: every 1 of
+spend has to return 1.67 of revenue before the gross profit covers it. The two
+products run at 90% and 140%, so they lose 0.46 and 0.16 of gross profit per 1
+spent. Without margin they merely look below target; with it they are
+provably unprofitable, which is why the margin question is worth chasing before
+this call rather than after.
 
 ## Guardrails
 

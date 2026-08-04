@@ -20,8 +20,11 @@ output changes an earlier verdict:
 
 - Signal audit fails -> every performance verdict in the session drops to
   `low` confidence, and scaling recommendations are withdrawn.
-- Asset coverage below floor -> structure recommendations wait. Structure
-  cannot fix a group Google has nothing to build with.
+- Asset coverage below `asset.required_minimum` -> structure recommendations
+  wait. Structure cannot fix a group that cannot serve. Note the precision:
+  only the required minimum blocks. A group below `asset.working_target` runs
+  fine and blocks nothing, and treating those two as one bar is the mistake
+  `asset-coverage-completeness-pmax` exists to prevent.
 - A learning reset inside the window -> post-change readout and scaling
   guardrail both refuse to attribute. Say the date it becomes readable
   instead of hedging.

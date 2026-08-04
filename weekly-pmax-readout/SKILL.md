@@ -30,8 +30,11 @@ campaign to a person who will not open Google Ads.
 1. Establish whether the period is readable at all. Below
    `conversion.volume_floor`, or inside `learning.duration` of a reset, the
    honest readout says so instead of reporting a delta.
-2. Pick at most three numbers. A readout with twelve metrics is a data dump
-   and gets skipped.
+2. Pick at most three QUANTITIES the reader is meant to remember. Not three
+   digits: a quantity can need two figures to make sense ("196 reported sales,
+   only 78 real"). The test is how many things the reader has to hold, not how
+   many characters are numeric. A readout carrying twelve quantities is a data
+   dump and gets skipped.
 3. For each number, write the movement and the reason in the same sentence. A
    number without a reason generates a question, which is the thing the
    readout was supposed to prevent.

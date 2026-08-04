@@ -69,9 +69,10 @@ conv, page /), "Brand" (9 conv, page /), "Summer promo" (4 conv, page
 /summer), "Accessories and spare parts" (2 conv, page /shop), "Test" (0 conv,
 page /, no video).
 
-Reading: 46 conversions supports about three to five groups at
-`asset_group.volume_floor`, so five is at the edge rather than clearly over,
-and `asset_group.fragmentation_flag` does not fire decisively. "Main" and
+Reading: 46 conversions supports 3.1 groups at the top of
+`asset_group.volume_floor` and 4.6 at the bottom, so five groups exceeds the
+ceiling at both ends and `asset_group.fragmentation_flag` fires either way.
+The account should be running three to four groups, not five. "Main" and
 "Brand" share a landing page and neither has a distinct theme. "Accessories and
 spare parts" fails the "and" test. "Test" has 3 headlines and no long headline,
 which is below `asset.required_minimum`, so it cannot serve at all.

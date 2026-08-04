@@ -41,8 +41,14 @@ it is the reason this audit often does not get done.
 
 ## Analysis workflow
 
-1. Check each group against `asset.required_minimum` first. Anything below it
-   cannot serve, which outranks every other finding in this skill.
+1. Check each group against `asset.required_minimum` first, and check whether
+   the campaign is linked to Merchant Center before saying what a shortfall
+   means. Without a feed, below-minimum means the group cannot serve. With a
+   feed, Google fills the gaps from the product data and the group serves on
+   material nobody wrote (`asset.required_minimum`, retail exception). Both are
+   urgent; only one of them is an outage, and calling a running retail group
+   dead is the fastest way to be wrong in front of someone who can see it
+   running.
 2. Then check against `asset.working_target`, and label these findings clearly
    as improvements rather than compliance failures.
 3. Check video separately, using `asset.video_note`. A group without video gets
@@ -62,8 +68,12 @@ it is the reason this audit often does not get done.
 
 ## Decision rules
 
-- Below `asset.required_minimum` on any dimension -> `do_now`. The group cannot
-  serve. This blocks every structural and budget recommendation elsewhere.
+- Below `asset.required_minimum` on any dimension, no Merchant Center feed ->
+  `do_now`. The group cannot serve, and this blocks every structural and budget
+  recommendation elsewhere.
+- Below `asset.required_minimum` with a feed attached -> `do_now` too, but say
+  what is actually happening: the group runs on auto-generated assets. It does
+  not block structural work, because the group is serving.
 - Meets the minimum but below `asset.working_target` -> `test`, phrased as an
   improvement. Never `do_now`, and never phrased as a rule breach.
 - No video -> `test` on adding one, and state plainly that an auto-generated
@@ -91,27 +101,40 @@ Then `What this could not see`, `Missing data`, `Approval gates`.
 Input: three groups. Group A: 11 headlines, 2 long headlines, 4 descriptions,
 all three image ratios, logo and business name present, 1 video, strength
 excellent. Group B: 5 headlines, 1 long headline, 5 descriptions, landscape and
-square only, logo present, no video, strength good. Group C: 3 headlines, no
-long headline, 2 descriptions, square only, logo present, no video, strength
-poor. Automatically created assets on across the account.
+square only, logo and business name present, no video, strength good. Group C:
+3 headlines, no long headline, 2 descriptions, square only, logo and business
+name present, no video, strength poor. Automatically created assets on across
+the account.
 
 Reading against `asset.required_minimum`: Group C fails twice, on the missing
 long headline and the missing landscape image, so it cannot serve. Groups A and
 B both clear the minimum in full. Group B's 5 descriptions are the platform
-ceiling, not a shortfall.
+ceiling, so that is the top of the range, not a shortfall.
 
-Reading against `asset.working_target`: Group A is short one description of the
-4-5 band and is otherwise strong. Group B has no video and no portrait image.
-Group C is short on everything.
+Reading against `asset.working_target`: Group A meets it on every dimension.
+11 headlines is inside the 8-12 band and 4 descriptions is inside the 4-5 band,
+so Group A gets no recommendation at all. Group B clears the minimum but sits
+at 5 headlines against a band of 8-12, which is its largest gap, and it has no
+video and no portrait image. Group C is short on everything, but that is
+secondary to the fact that it cannot serve.
 
-Output: "One group cannot serve. Two more are servable and below target."
+Output: "One group cannot serve. One is servable and below target. One is
+fine."
+
 Group C `do_now` on the long headline and the landscape image, because until
-those exist nothing else about that group matters, and its structural
-recommendations elsewhere are blocked. Group B `test` on a video and a portrait
-image, with the note that an auto-generated video is already representing the
-brand on YouTube. Group A `test` on one more description. Automatically created
-assets `approval_needed` for a review pass, since live copy is being written
-from the landing page by Google.
+those exist nothing else about that group matters and its structural
+recommendations elsewhere are blocked.
+
+Group B `test` on headlines first, since 5 against a band of 8-12 is the
+biggest gap, then on a video and a portrait image, with the note that an
+auto-generated video is already representing the brand on YouTube.
+
+Group A gets nothing. Inventing a recommendation for a compliant, at-target
+group is exactly the failure this skill opens by warning against.
+
+Automatically created assets `approval_needed` for a review pass, since live
+copy is being written from the landing page by Google rather than by anyone
+here.
 
 ## Guardrails
 

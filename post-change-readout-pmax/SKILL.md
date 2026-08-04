@@ -78,7 +78,9 @@ same fortnight ran 12% above its own preceding month. A promotion ended 20
 July.
 
 Reading: 13 days have passed, under `learning.duration`, so the campaign is
-still in learning from a formal reset. The rise to 71 is outside pre-period
+probably still in learning. "Probably" is doing real work there: a conversion
+goal change is our reading of Google's "composition change", not something
+Google lists (`learning.reset_triggers`). The rise to 71 is outside pre-period
 variance of 49-58, so something moved. But two other explanations sit in the
 window: last year showed the same seasonal direction, and a promotion ended
 two days before the change.

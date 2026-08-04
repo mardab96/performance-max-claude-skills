@@ -76,9 +76,12 @@ spend.
 Two top spenders also run below target: SKU-TOP-013 at 90% ROAS and
 SKU-TOP-014 at 140%.
 
-`approval_needed` on excluding the flagged tail. `investigate` on the two top
-spenders, checking price competitiveness before excluding, because a 140% ROAS
-product on a 60% margin may still be profitable.
+`approval_needed` on excluding the flagged tail. On the two top spenders, the
+answer depends on a number this account has not supplied. At 60% gross margin,
+breakeven is a ROAS of 167%, so 90% and 140% are both losses. At 80% margin,
+breakeven is 125% and the 140% product is marginally profitable while the 90%
+one is not. `investigate`, and the thing to investigate is the margin, not the
+price.
 
 ---
 
@@ -138,7 +141,9 @@ blended account CPA improves.
 
 Not because the campaign is unstable, but because three approved changes are
 queued: conversion goal demotions, a tail exclusion and brand exclusions. The
-first is a formal reset (`learning.reset_triggers`).
+first is a learning event on our reading of Google's "composition change"
+(`learning.reset_triggers`), which is worth saying because the whole sequence
+below rests on it and Google does not list conversion goal changes by name.
 
 Sequence, rather than all at once:
 
@@ -154,26 +159,28 @@ how accounts end up with four months of changes nobody can evaluate.
 
 ## Step 6. Weekly readout, for the client
 
-"Last month the campaign spent 38,412 and reported 196 sales, but only 78 of
-those were actual purchases. The rest were people adding to basket or joining
-the mailing list, which the account was set up to count as sales worth 25 each,
-so the campaign has been buying the cheap ones. We are fixing that first.
+"Last month the campaign spent 38,412 and reported 196 sales. Only 78 were
+actual purchases. The rest were baskets and mailing-list signups, which the
+account counts as sales worth 25 each, so the campaign has been buying the
+cheap ones. We are fixing that first.
 
-Two other things. About 15,000 of the spend, which is nearly 40%, went to 23
-products that have not sold anything at all. And some of what the campaign
-claims is being won by your brand campaign anyway, which buys the same demand
-far cheaper; we cannot yet say how much, and the report that would tell us is
-one we have not pulled.
+Separately, 15,138 went to 23 products that have not sold anything at all.
 
-One decision for you: whether to keep spending on those 23 products. We would
-stop. Everything else can wait, and we are deliberately making these changes
-one at a time over the next two months rather than together, so we can tell
-which one worked.
+One decision for you: whether to keep spending on those 23. We would stop.
+Everything else can wait, and we are making the changes one at a time over the
+next two months so we can tell which one worked.
 
-Worth knowing about these numbers: 400 of your products are currently excluded
-from the campaign by how it is structured, so the percentages above describe
-the part of the catalogue that is actually running, not all of it. That is on
-our list to sort out and it may move the figures."
+One caveat on the figures: 400 of your products are currently excluded from the
+campaign by how it is built, so the percentages describe the part of the
+catalogue that is running, not all of it. We will come back to you on that by
+the end of the month."
+
+Word count: 148, against the skill's 200-word limit. Three quantities the
+reader has to hold: how much of the reported sales figure is real, how much
+went to products that never sold, and how many products are excluded. The
+supporting figures inside each of those do not count as separate things to
+remember. The earlier draft ran 218 words and asked the reader to hold six
+quantities, breaking both rules of the skill it was demonstrating.
 
 ---
 

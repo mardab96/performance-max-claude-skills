@@ -120,10 +120,14 @@ def analyse(rows, target_cpa=None, target_roas=None):
         top_block.append(r)
 
     zero_tail = [r for r in rows if r["conversions"] == 0 and r["cost"] > 0]
-    if target_cpa:
-        flagged_tail = [r for r in zero_tail if r["cost"] >= 3 * target_cpa]
-    else:
-        flagged_tail = []
+    # listing_group.zero_tail_flag needs a target CPA. With only a ROAS target
+    # it cannot be computed, and the difference between "computed, found none"
+    # and "could not compute" must survive into the output. Returning 0 for
+    # both is how a failure to compute gets read as a finding about the
+    # account.
+    flagged_tail = (
+        [r for r in zero_tail if r["cost"] >= 3 * target_cpa] if target_cpa else None
+    )
 
     for r in rows:
         r["cpa"] = round(r["cost"] / r["conversions"], 2) if r["conversions"] else None
@@ -155,9 +159,19 @@ def analyse(rows, target_cpa=None, target_roas=None):
         ),
         "zero_conversion_products": len(zero_tail),
         "zero_conversion_cost": round(sum(r["cost"] for r in zero_tail), 2),
-        "flagged_tail_products": len(flagged_tail),
-        "flagged_tail_cost": round(sum(r["cost"] for r in flagged_tail), 2),
-        "flagged_tail_basis": "cost >= 3x target CPA of %s" % target_cpa if target_cpa else "not computed: no --target-cpa given",
+        "flagged_tail_products": len(flagged_tail) if flagged_tail is not None else None,
+        "flagged_tail_cost": (
+            round(sum(r["cost"] for r in flagged_tail), 2)
+            if flagged_tail is not None
+            else None
+        ),
+        "flagged_tail_basis": (
+            "cost >= 3x target CPA of %s" % target_cpa
+            if target_cpa
+            else "NOT COMPUTED: listing_group.zero_tail_flag needs --target-cpa. "
+                 "The null above means unknown, not zero. There are %d "
+                 "zero-conversion products in this export." % len(zero_tail)
+        ),
         "target_roas_pct": target_roas,
         "top_products": rows[:20],
     }
@@ -170,10 +184,13 @@ def main():
     p.add_argument("--target-roas", type=float, default=None, help="as a percentage, e.g. 400")
     args = p.parse_args()
 
-    if args.target_cpa is None and args.target_roas is None:
+    if args.target_cpa is None:
         print(
-            "note: no target given, so the zero-conversion tail cannot be flagged. "
-            "Pass --target-cpa or --target-roas.",
+            "WARNING: --target-cpa not given, so the zero-conversion tail cannot be "
+            "flagged. flagged_tail_products and flagged_tail_cost will be null, "
+            "which means UNKNOWN, not zero. A ROAS target alone is not enough for "
+            "this flag: convert it to a CPA from your average order value and pass "
+            "--target-cpa as well.",
             file=sys.stderr,
         )
 

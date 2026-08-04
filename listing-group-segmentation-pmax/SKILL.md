@@ -50,8 +50,10 @@ mixes products with incompatible economics.
 ## Decision rules
 
 - Proposed campaigns exceed monthly conversions divided by
-  `asset_group.volume_floor` -> `ignore` the split. Say the volume cannot feed
-  it and name the number it can.
+  `conversion.volume_floor` -> `ignore` the split. Say the volume cannot feed
+  it and name the number it can. Use the campaign floor here, not the asset
+  group floor; the group floor is two to three times looser, and using it is
+  how six-campaign proposals get waved through.
 - Margin bands crossing `segment.margin_gap` with volume to support it ->
   `approval_needed` on a split by margin band, which is almost always a better
   cut than by category.
@@ -79,10 +81,12 @@ Input: one campaign, 140 conversions/month, catalogue of 6 categories. The
 owner wants 6 campaigns. Margin runs 55-62% in four categories and 18-22% in
 two.
 
-Reading: 140 conversions divided by `asset_group.volume_floor` supports around
-9-14 asset groups or roughly 2-3 campaigns, not 6. Category is the wrong cut
-because four of them share economics. Margin band is the right cut and it
-produces exactly two segments.
+Reading: 140 conversions divided by `conversion.volume_floor` supports about
+4.7 campaigns, and divided by `asset_group.volume_floor` about 9 to 14 asset
+groups. Six campaigns is over the ceiling, though not wildly. Category is the
+wrong cut anyway, because four of the six share economics. Margin band is the
+right cut and produces exactly two segments, which the volume supports
+comfortably.
 
 Output: "Split, but into two, not six." High-margin campaign covering four
 categories, low-margin campaign covering two, each with its own target ROAS.
