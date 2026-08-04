@@ -26,10 +26,13 @@ mixes products with incompatible economics.
 
 ## Analysis workflow
 
-1. Start with the constraint, not the idea. Divide monthly campaign
-   conversions by `asset_group.volume_floor`. That number is the ceiling on
-   how many campaigns or asset groups this account can feed. Most proposed
-   splits die here and should.
+1. Start with the constraint, not the idea, and use the right floor for the
+   unit you are counting. Monthly conversions divided by
+   `conversion.volume_floor` is the ceiling on CAMPAIGNS. Divided by
+   `asset_group.volume_floor` it is the ceiling on ASSET GROUPS. Mixing them up
+   inflates the campaign count by a factor of two or three, which is how
+   six-campaign proposals get waved through. Most proposed splits die here and
+   should.
 2. Identify whether the products genuinely have different economics: different
    margin bands, different target ROAS, different sales cycles. Different
    categories with the same economics are not a reason to split.
@@ -49,11 +52,11 @@ mixes products with incompatible economics.
 - Proposed campaigns exceed monthly conversions divided by
   `asset_group.volume_floor` -> `ignore` the split. Say the volume cannot feed
   it and name the number it can.
-- Margin bands differ by more than roughly 20 percentage points across
-  segments [heuristic] and volume supports it -> `approval_needed` on a split
-  by margin band, which is almost always a better cut than by category.
-- One segment below 5% of impressions despite matching demand [heuristic] ->
-  `investigate` starvation. This is the strongest genuine split argument.
+- Margin bands crossing `segment.margin_gap` with volume to support it ->
+  `approval_needed` on a split by margin band, which is almost always a better
+  cut than by category.
+- A segment crossing `segment.starvation_flag` -> `investigate` starvation.
+  This is the strongest genuine split argument.
 - Same economics, different categories -> `ignore`. Recommend listing group
   subdivision for reporting instead, which costs nothing.
 - Campaign below `conversion.volume_floor` -> never split. Consolidate

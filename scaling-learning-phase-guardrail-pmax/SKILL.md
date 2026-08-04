@@ -26,10 +26,14 @@ whether it was the market, the season or the last edit.
 1. Plot every change from the history against the performance trend. Do this
    before forming any opinion about the trend, or you will read the season as
    an edit.
-2. Mark which changes are formal learning resets
-   (`learning.reset_triggers`). Budget changes are not on that list, which
-   surprises people; they cause volatility without formally restarting
-   learning.
+2. Mark which changes are learning events (`learning.reset_triggers`). Two
+   distinctions that people get wrong constantly, and both are worth stating in
+   the output because they change what gets blamed:
+   - Budget changes are not on Google's list (`learning.budget_note`). They
+     cause volatility without formally restarting learning.
+   - Changing the VALUE of an existing target is not the same as changing the
+     bid strategy (`learning.target_change_note`). Moving tCPA from 70 to 60 is
+     not a reset; switching from Maximise Conversions to tCPA is.
 3. For each reset, check whether `learning.duration` had elapsed before the
    next change landed. A campaign edited more often than that never leaves
    learning and its numbers are not readable.
@@ -77,16 +81,33 @@ Input: budget raised from 200 to 400/day on 14 July. Conversion goal changed
 about 90 conversions/month.
 
 Reading: the budget doubled, which is far above `budget.step`, and five days
-later the conversion goal changed, which is a formal reset
+later the conversion goal changed, which is a learning event
 (`learning.reset_triggers`). The CPA rise starts after both. Only 16 days have
 elapsed, well under `learning.judgement_window`, so the campaign is not yet
 readable.
 
-Output: "Freeze." No further changes until roughly 25 August, which is
-`learning.judgement_window` from the last reset. Then re-read. If CPA has not
-returned toward 70 by then, the conversion goal change is the suspect, not the
-budget. Next budget step when stable: 400 to 460-480, hold one conversion
-cycle, then reassess.
+`budget.starve_floor` also fires and it changes the plan. At a target CPA of
+70 the floor is 700/day, and the campaign sits at 400 even after doubling. So
+this is a campaign that was starved before the change and is still starved
+after it. When two rules fire together, the freeze wins on timing and the
+starve floor wins on direction: do nothing now, and when the window opens, the
+budget is the lever rather than the structure.
+
+Output: "Freeze, then feed it." No further changes until 16 to 30 August,
+which is `learning.judgement_window` from the 19 July reset; state both ends of
+that range rather than picking a date inside it, because the range is what the
+threshold gives you. Then re-read. If CPA has not returned toward 70, the
+conversion goal change is the suspect, not the budget.
+
+Then the budget. At 400/day against a 700 floor, steps of `budget.step` reach
+the floor in roughly four moves with `budget.step_wait` between them, which is
+most of a quarter. Say that out loud: either the budget goes up faster than
+`budget.step` and the campaign stays volatile, or it goes up at a safe rate and
+takes a quarter, or the target CPA comes down so the floor comes down with it.
+That third option is usually the real answer and it is the one nobody offers.
+It is also cheaper than it sounds: lowering the target value does not restart
+learning (`learning.target_change_note`), so it does not add a waiting period
+on top of the one already running.
 
 ## Guardrails
 

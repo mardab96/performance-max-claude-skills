@@ -5,9 +5,9 @@ Implements the arithmetic for the skill `product-spend-concentration-pmax`.
 The skill owns the decision rules; this script owns the counting, so that two
 runs on the same export cannot disagree about the numbers.
 
-Thresholds referenced (defined in ../references/thresholds.md):
-  listing_group.spend_concentration  top products absorbing 70%+ of spend
-  zero-tail flag                     spend above ~3x target CPA, 0 conversions
+Thresholds referenced, both defined in ../references/thresholds.md:
+  listing_group.spend_concentration  top 20% of products holding 70%+ of spend
+  listing_group.zero_tail_flag       spend >= 3x target CPA with 0 conversions
 
 Usage:
     python3 spend_concentration.py products.csv --target-cpa 60

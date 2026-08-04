@@ -50,9 +50,8 @@ about to add a sixth group to a campaign that cannot feed the five it has.
 - Coverage below `asset.required_minimum` -> `do_now` on assets before any
   structural change. Structure cannot fix a group Google has nothing to build
   with.
-- More than roughly one asset group per `asset_group.volume_floor` worth of
-  monthly conversions [heuristic] -> fragmentation; recommend consolidating to
-  the number the volume supports.
+- Group count crossing `asset_group.fragmentation_flag` -> recommend
+  consolidating to the number the volume supports.
 
 ## Output format
 
@@ -70,16 +69,25 @@ conv, page /), "Brand" (9 conv, page /), "Summer promo" (4 conv, page
 /summer), "Accessories and spare parts" (2 conv, page /shop), "Test" (0 conv,
 page /, no video).
 
-Reading: 46 conversions supports about three groups at
-`asset_group.volume_floor`, not five. "Main" and "Brand" share a landing page
-and neither has a distinct theme. "Accessories and spare parts" fails the
-"and" test. "Test" has no video and no conversions.
+Reading: 46 conversions supports about three to five groups at
+`asset_group.volume_floor`, so five is at the edge rather than clearly over,
+and `asset_group.fragmentation_flag` does not fire decisively. "Main" and
+"Brand" share a landing page and neither has a distinct theme. "Accessories and
+spare parts" fails the "and" test. "Test" has 3 headlines and no long headline,
+which is below `asset.required_minimum`, so it cannot serve at all.
 
-Output: one change, "merge Main and Brand". Then the table, with "Test" marked
-`do_now` for removal, "Accessories and spare parts" marked
-`approval_needed` for a split into two groups once volume supports it, and
-"Summer promo" marked `monitor` because a seasonal group with a real page is
-allowed to be small.
+The order is forced here and it is worth naming: coverage outranks structure,
+so "Test" being unservable is dealt with first, and it is a coverage finding
+rather than a structural one. That leaves exactly one structural change.
+
+Output: one structural change, "merge Main and Brand", because they share a
+page and neither carries a distinct theme. Separately, and not as a structural
+change, "Test" is `do_now` on either fixing its assets or removing it, since it
+currently cannot serve. "Accessories and spare parts" is `monitor`, not a
+split: splitting it takes the group count up while the volume supports fewer,
+and the "and" problem is real but cannot be fixed by adding groups this
+account cannot feed. "Summer promo" is `monitor` because a seasonal group with
+its own page is allowed to be small.
 
 ## Guardrails
 

@@ -49,15 +49,14 @@ to tell new from returning.
 
 ## Decision rules
 
-- Customer list older than one full repeat-purchase cycle [heuristic] ->
-  `do_now` on refreshing before trusting any new-customer number.
+- Customer list crossing `newcustomer.list_staleness` -> `do_now` on
+  refreshing before trusting any new-customer number.
 - New customer value exceeding first-order margin without a lifetime value
   case -> `approval_needed` on lowering it. Name the per-order cost.
 - Acquisition mode on with no other campaign serving returning customers ->
   `approval_needed` on switching to value mode.
-- Platform new-customer share differing from the business figure by more than
-  roughly 15 percentage points [heuristic] -> `investigate` classification
-  before acting on anything downstream.
+- A gap crossing `newcustomer.classification_gap` -> `investigate`
+  classification before acting on anything downstream.
 - No first-party data connection and no customer list -> the setting is
   guessing. `do_now` on connecting data, or turn the setting off.
 

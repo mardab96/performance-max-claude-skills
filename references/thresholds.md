@@ -55,6 +55,23 @@ Every entry carries a unit and a tag:
 | `conversion.offline_lag_floor` | offline import older than 7 days behind | [heuristic] | Beyond this, bidding is optimising on a stale picture. |
 | `conversion.volume_floor` | ~30 conversions per 30 days per campaign | [heuristic] | Below this, most period-over-period comparisons in this pack are not readable. Say so instead of reporting a delta. |
 
+## Flags
+
+Thresholds that decide whether a finding is raised at all. Each is a starting
+point, not a rule; recalibrate and say which one you moved.
+
+| Key | Value | Tag | Notes |
+|---|---|---|---|
+| `placement.waste_flag` | a placement family above ~5% of total campaign impressions with no plausible audience fit | [heuristic] | Below this, exclusion is a judgement call rather than a data-backed one, and the output must say so. |
+| `listing_group.zero_tail_flag` | a product with spend at or above 3x target CPA and zero conversions | [heuristic] | Compute from the account's own target, never a fixed currency amount. One target CPA of spend is noise; three is a finding. Implemented in `../scripts/spend_concentration.py` as `flagged_tail_products`. |
+| `feed.disapproval_flag` | a single disapproval reason affecting more than ~5% of the catalogue | [heuristic] | Rank by product count, not by how alarming the reason sounds. |
+| `segment.margin_gap` | margin bands differing by more than ~20 percentage points across proposed segments | [heuristic] | Below this, splitting by margin buys nothing the targets could not do inside one campaign. |
+| `segment.starvation_flag` | a product segment below ~5% of campaign impressions despite matching demand | [heuristic] | The strongest genuine argument for a split. Underperforming is not starving. |
+| `newcustomer.list_staleness` | a customer list older than one full repeat-purchase cycle | [heuristic] | Measure the cycle from the account's own order data. Beyond it, recent buyers are being counted as new and carrying a premium. |
+| `newcustomer.classification_gap` | platform new-customer share differing from the business figure by more than ~15 percentage points | [heuristic] | Above this, the classification is wrong and every verdict built on it inherits the error. |
+| `audience.signal_cap` | more than ~3 audience signals on one asset group, none of them first-party | [heuristic] | More signals is not more steering. One converter list outsteers five interest signals. |
+| `asset_group.fragmentation_flag` | more asset groups than monthly conversions divided by `asset_group.volume_floor` | [heuristic] | Same defect as running too many campaigns. Consolidate to the number the volume supports. |
+
 ## Reporting limits (not thresholds, but load-bearing facts)
 
 All three checked against Google documentation on 2026-08-04. This section is

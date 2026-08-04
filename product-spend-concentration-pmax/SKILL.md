@@ -34,10 +34,9 @@ out loud in the output rather than letting the reader assume otherwise.
    defect; concentration with weak returns is.
 3. Split the top spenders into three buckets: beating target, near target,
    below target.
-4. Find the zero bucket separately: products with meaningful spend and zero
-   conversions. Use the account's own CPA to decide what "meaningful" means,
-   not a fixed number. A product that has spent one target CPA without
-   converting is noise; one that has spent three is a finding.
+4. Find the zero bucket separately, using `listing_group.zero_tail_flag`.
+   It is expressed as a multiple of the account's own target CPA rather than a
+   currency amount, so it travels between accounts.
 5. Check the tail. Products with impressions and almost no clicks usually have
    a price, image or title problem rather than a bidding problem, and belong
    in the feed skill, not this one.
@@ -47,9 +46,9 @@ out loud in the output rather than letting the reader assume otherwise.
 
 ## Decision rules
 
-- Spend above roughly 3x target CPA with zero conversions [heuristic] ->
-  `approval_needed` on exclusion from the listing group, unless the product is
-  new or seasonal, in which case `monitor` with a date.
+- A product crossing `listing_group.zero_tail_flag` -> `approval_needed` on
+  exclusion from the listing group, unless the product is new or seasonal, in
+  which case `monitor` with a date.
 - Concentration above `listing_group.spend_concentration` with top products
   beating target -> `ignore`. This is a working campaign and splitting it
   usually costs more than it returns.
@@ -73,22 +72,25 @@ Then `What this could not see`, `Missing data`, `Approval gates`.
 
 ## Practical example
 
-Input: 180 products, campaign cost 24,000, target ROAS 400%. Top 12 products
-carry 71% of spend. Ten of them run 380-520% ROAS. Two run 90% and 140%. A
-further 23 products have spent between 400 and 900 each with zero conversions;
-target CPA is 60.
+Input: 180 products, campaign cost 24,000, target ROAS 400%, target CPA 60.
+Top 12 products hold 17,040, which is 71% of spend. Ten of them run 380-520%
+ROAS. Two run 90% and 140% and cost 1,500 and 1,400. That leaves 6,960 across
+the remaining 168 products, of which 23 have spent between 180 and 280 each
+with zero conversions, totalling 5,290.
 
-Reading: concentration is above `listing_group.spend_concentration` but is
-mostly healthy, so the campaign is not the problem. The two underperforming
-top spenders are worth about 3,900 of spend at roughly half the target return.
-The 23 zero-conversion products have each spent between 6x and 15x target CPA,
-well past the flag.
+Reading: 12 of 180 products is 6.7% of the catalogue holding 71% of spend, so
+both halves of `listing_group.spend_concentration` are crossed. Ten of the
+twelve beat target, so the concentration itself is healthy and no split is
+recommended. `listing_group.zero_tail_flag` sits at 3 x 60 = 180, and all 23
+zero-conversion products are at or above it, so the whole tail is flagged. The
+two weak top spenders average 115% ROAS against a 400% target, which is under
+a third of target, not half.
 
-Output: "Two top sellers and a long zero tail are costing roughly 9,000 at
-below-target return." Table, then `approval_needed` on excluding the zero
-tail, `investigate` on the two top spenders (check price competitiveness
-before excluding, because a 140% ROAS product with 60% margin may still be
-profitable).
+Output: "A 23-product zero tail and two weak top sellers are costing 8,190 at
+below-target return, which is 34% of the campaign." Table, then
+`approval_needed` on excluding the tail (5,290), `investigate` on the two top
+spenders (2,900), checking price competitiveness before excluding, because a
+140% ROAS product on 60% margin may still be profitable.
 
 ## Guardrails
 

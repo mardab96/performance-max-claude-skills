@@ -45,8 +45,7 @@ nobody has read, or a retail campaign underspends its budget.
 
 ## Decision rules
 
-- Any disapproval reason affecting more than roughly 5% of the catalogue
-  [heuristic] -> `do_now`.
+- Any disapproval reason crossing `feed.disapproval_flag` -> `do_now`.
 - Approved products with zero impressions over at least
   `learning.judgement_window` -> `investigate` listing group exclusions first,
   feed quality second, auction losses last. That order matters; most people
@@ -74,7 +73,7 @@ Input: 1,240 products in feed, 1,190 approved, 610 with impressions in the
 last 30 days.
 
 Reading: 50 products blocked by disapprovals, and 580 approved products that
-never served. The second gap is nine times larger than the first and nobody
+never served. The second gap is 11.6 times larger than the first and nobody
 was looking at it. Sampling shows 400 of the non-serving products sit outside
 the listing group structure entirely, and 90 lack GTIN on branded resale
 items.

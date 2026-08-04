@@ -49,9 +49,11 @@ the single most common suspicion about PMax.
 
 ## Decision rules
 
-- A placement family above roughly 5% of total impressions with no plausible
-  audience fit [heuristic] -> `approval_needed` on an account-level exclusion,
-  with the caveat that the cost saved cannot be measured in advance.
+- A placement family crossing `placement.waste_flag` -> `approval_needed` on
+  an account-level exclusion, with the caveat that the per-placement cost saved
+  cannot be measured in advance.
+- A family below `placement.waste_flag` -> `monitor`, and say it is below the
+  bar. Recommending an exclusion under the flag turns the rule into a hunch.
 - Mobile app inventory dominating impressions while the offer is B2B
   -> `do_now` on app category exclusions. This is the highest-confidence call
   in the skill.

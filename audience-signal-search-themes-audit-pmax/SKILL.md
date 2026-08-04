@@ -56,9 +56,8 @@ someone is about to add a fifth audience signal to fix targeting.
   `learning.judgement_window` -> `monitor` or remove; it is not landing.
 - Remarketing signal on a campaign carrying a new-customer goal ->
   `approval_needed` on removing one or the other, and name which goal wins.
-- More than roughly three signals per asset group [heuristic] with no
-  first-party list among them -> consolidate. Say plainly that signals do not
-  restrict serving.
+- A group crossing `audience.signal_cap` -> consolidate. Say plainly that
+  signals do not restrict serving.
 
 ## Output format
 

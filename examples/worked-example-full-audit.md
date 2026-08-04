@@ -23,8 +23,11 @@ Two of three primary actions carry a fixed 25 while representing no revenue,
 which crosses `conversion.value_spread_flag`. Of 196 reported conversions, 118
 are carts and signups. The campaign has learned that carts are the cheap win.
 
-**Everything below inherits this.** Confidence caps at `medium` until the
-signal is fixed, and no scaling recommendation is issued this session.
+**Everything below inherits this.** `AGENTS.md` is explicit about what a
+failed signal audit does: every later verdict in the session drops to `low`
+confidence and scaling recommendations are withdrawn. So everything below is
+`low`, and that is not a formality. It means these findings are worth acting on
+in order of size, not worth defending to a client as precise.
 
 ---
 
@@ -46,13 +49,29 @@ flagged_tail_products       23
 flagged_tail_cost      15138.35
 ```
 
-**Verdict: the zero tail is the finding, not the concentration.**
+**Read the denominator before the verdict.** The export has 96 rows because
+the Google Ads product report only lists products that spent something. The
+catalogue is far larger; step 3 gets to that. So every share below is a share
+of spending products, not of the catalogue, and that distinction decides the
+next paragraph.
 
-25% of the catalogue holding 71.5% of spend is ordinary retail shape, so
-`listing_group.spend_concentration` does not fire and no split is
-recommended. What does fire is the tail: 23 products have each spent at least
-three times target CPA with zero conversions, together 15,138, which is 39% of
-the campaign budget.
+**Verdict: the zero tail is the finding, and the concentration needs a second
+look.**
+
+`listing_group.spend_concentration` requires both halves: a small slice of the
+catalogue and 70%+ of spend. Here the top block is 25.0% of spending products,
+above the 20% half, so the flag does not fire and no split is recommended.
+
+But the flag not firing is not the same as the concentration being healthy, and
+this is where the AND in the threshold can hide a finding. Checking the health
+half separately: of the 24 products in the top block, 10 have zero conversions
+and hold 7,767 of spend, which is 28.3% of the block. So the block is not
+simply carrying the campaign. Report both: the flag is off, and more than a
+quarter of the top block is dead weight.
+
+What fires cleanly is the tail: 23 products crossing
+`listing_group.zero_tail_flag`, together 15,138, which is 39.4% of campaign
+spend.
 
 Two top spenders also run below target: SKU-TOP-013 at 90% ROAS and
 SKU-TOP-014 at 140%.
@@ -70,25 +89,46 @@ Reconciliation: **1,240 in feed, 1,190 approved, 610 serving.**
 The gap that matters is the second one. 580 approved products never served,
 and sampling shows 400 sit outside the listing group structure entirely.
 
-**This changes step 2.** The concentration figures above describe the 610
-products that serve, not the catalogue. Their shares are provisional until the
-400 excluded products are either included or deliberately excluded.
+**This reconciles step 2 rather than contradicting it.** Three different
+counts are in play and they are not the same thing: 1,240 products exist in the
+feed, 610 got impressions, and 96 spent money. The product report in step 2
+lists only the 96, which is why its denominator looked small.
+
+**It does change what step 2's shares mean.** They are shares of spending
+products, and 400 products are excluded by listing group structure so they
+never had the chance to spend. Until those 400 are either included or
+deliberately excluded, every percentage in step 2 describes a partial
+catalogue. Say so wherever those percentages travel, including to the client.
 
 ---
 
 ## Step 4. Brand cannibalization audit
 
 Brand Search: 3,100 spend, 148 conversions, CPA 20.95.
-Blended PMax CPA on purchases only: 38,412 / 78 = 492.
+PMax CPA on purchases only: 38,412 / 78 = 492.
 
-Search categories: 9 of 31 carry the brand name, roughly 29%, above
-`brand.overlap_flag`. Brand CPA is far below `brand.cpa_gap_flag`.
+Search categories: 9 of 31 carry the brand name. No search terms report was
+supplied.
 
-**Verdict: strong case.** Estimated 20-35 of the 78 purchases are branded
-demand the brand campaign wins at a twentieth of the cost.
+**Verdict: confirmed in kind, unknown in size.** Two things are worth separating
+here, because collapsing them is the easy mistake.
 
-`approval_needed` on brand exclusions, with the consequence stated: reported
-PMax ROAS falls, blended account CPA improves.
+What is measured: nothing about the branded share. 9 of 31 is a count of
+category labels, and one category can hold most of the volume. It crosses
+`brand.overlap_flag` on the label test, so there is a case, but the size is not
+derivable from this input and any number stated here would be invented.
+
+What is also not clean: the CPA comparison. 492 is PMax cost over purchases
+only, while 20.95 is brand cost over all 148 of its conversions. The brand
+campaign runs on the same account-level goals, so it is almost certainly
+carrying the same cart and newsletter inflation that step 1 found in PMax. Like
+for like, the brand figure would rise. The gap is real and large; the ratio is
+not 23:1 and should not be quoted as one.
+
+`do_now` on pulling the search terms report, which converts this whole step
+from an estimate into a number. Brand exclusions stay `approval_needed` and
+should wait for it, with the consequence stated: reported PMax ROAS falls,
+blended account CPA improves.
 
 ---
 
@@ -116,14 +156,52 @@ how accounts end up with four months of changes nobody can evaluate.
 
 "Last month the campaign spent 38,412 and reported 196 sales, but only 78 of
 those were actual purchases. The rest were people adding to basket or joining
-the mailing list, which the campaign had been told to treat as sales worth 25
-each, so it has been buying the cheap ones. We are fixing that first.
+the mailing list, which the account was set up to count as sales worth 25 each,
+so the campaign has been buying the cheap ones. We are fixing that first.
 
-Two other things: nearly 40% of the budget went to products that have not sold
-anything at all, and a chunk of what the campaign claims is being won by your
-brand campaign anyway at a twentieth of the cost.
+Two other things. About 15,000 of the spend, which is nearly 40%, went to 23
+products that have not sold anything at all. And some of what the campaign
+claims is being won by your brand campaign anyway, which buys the same demand
+far cheaper; we cannot yet say how much, and the report that would tell us is
+one we have not pulled.
 
-We are making these changes one at a time over the next six weeks rather than
-together, so we can tell which one worked. Nothing needs a decision from you
-this week. The one call worth making early is whether to keep spending on the
-23 products that have never sold, and we would recommend stopping."
+One decision for you: whether to keep spending on those 23 products. We would
+stop. Everything else can wait, and we are deliberately making these changes
+one at a time over the next two months rather than together, so we can tell
+which one worked.
+
+Worth knowing about these numbers: 400 of your products are currently excluded
+from the campaign by how it is structured, so the percentages above describe
+the part of the catalogue that is actually running, not all of it. That is on
+our list to sort out and it may move the figures."
+
+---
+
+## What this example could not see
+
+Deliberately included, because every skill in the pack is required to produce
+this section and the flagship example was previously the one document that
+skipped it.
+
+- **The branded share.** Step 4 works from category labels, which give a case
+  but not a size. The search terms report would turn it into a number and was
+  not available here.
+- **Per-placement cost.** Not reported by Google at all. The channel split
+  would be available and was not pulled for this example.
+- **Margin.** Every product verdict above is about revenue. Two of the products
+  recommended for exclusion could be profitable on margin and this example
+  cannot tell.
+- **The 400 excluded products.** They have never had the chance to spend, so
+  nothing here describes them.
+
+## Missing data
+
+The search terms report, the channel performance report, product-level margin,
+and the listing group configuration that excludes 400 products.
+
+## Approval gates
+
+Nothing above has been done. Demoting two conversion actions, excluding 23
+products, adding brand exclusions and resolving the listing group exclusions
+are four separate decisions, each needing a human yes, and the sequencing in
+step 5 exists so they do not land at once.
