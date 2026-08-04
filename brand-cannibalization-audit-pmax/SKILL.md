@@ -45,7 +45,9 @@ answer is. Say which you used, every time.
    This is the step that goes wrong most often: PMax CPA computed on purchases
    only, against brand CPA computed on all its conversions, is not a comparison
    and it fires `brand.cpa_gap_flag` falsely. Pick one basis, apply it to both,
-   and say which you picked.
+   and say which you picked. The word "blended" is banned in this output for
+   the same reason: it reads as a single agreed figure while meaning whatever
+   the writer happened to divide by.
 5. Check `brand.overlap_flag` and `brand.cpa_gap_flag`. Either one crossing is
    a case; both crossing is a strong case.
 6. Decide what the exclusion would actually cost. Brand exclusions in PMax

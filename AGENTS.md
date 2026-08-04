@@ -46,7 +46,7 @@ with it.**
 | 3 | Learning event inside `learning.duration` | any attribution | You cannot say what caused a movement the campaign is still absorbing. Give the date it becomes readable. |
 | 4 | Below `asset.required_minimum`, no feed | any structural recommendation | Structure cannot fix a group that cannot serve. Note: `asset.working_target` does NOT block anything. |
 | 5 | Feed blockers found | any share of spend or products | The shares describe a partial catalogue until the blockers clear. |
-| 6 | Freeze (rule 3) and `budget.starve_floor` both fire | neither wins outright | The freeze wins on timing and the starve floor wins on direction: do nothing now, and when the window opens, budget is the lever. Say both. |
+| 6 | Freeze (rule 3) and `budget.starve_floor` both GENUINELY fire | neither wins outright | The freeze wins on timing and the starve floor wins on direction: do nothing now, and name the budget question for when the window opens. Say both. **A starve floor that failed its corroboration has not fired**, so this is not a collision and rule 3 simply applies. |
 | 7 | `do_now` on a fix and `monitor` on a window | the `monitor` | A cheap, reversible fix with no learning cost may proceed during a window; the window blocks the VERDICT, not the housekeeping. Say which you are doing. |
 
 Rule 7 is the one people get wrong most often. "Add the missing brand variant"
