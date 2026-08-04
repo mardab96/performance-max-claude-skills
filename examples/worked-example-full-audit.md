@@ -41,9 +41,11 @@ total_cost              38412.12
 top_block_size              24
 top_block_share_pct       71.5
 concentration_flag       false
-concentration_basis  top 24 of 96 products (25.0% of catalogue)
-                     hold 71.5% of spend; flag requires the
-                     catalogue share to be 20% or less
+concentration_basis  top 24 of 96 SPENDING products (25.0% of
+                     them) hold 71.5% of spend; flag requires
+                     that share to be 20% or less. NOTE:
+                     spending products are only those with cost
+                     in the export, not the full catalogue
 zero_conversion_products    24
 flagged_tail_products       23
 flagged_tail_cost      15138.35
@@ -117,9 +119,11 @@ supplied.
 here, because collapsing them is the easy mistake.
 
 What is measured: nothing about the branded share. 9 of 31 is a count of
-category labels, and one category can hold most of the volume. It crosses
-`brand.overlap_flag` on the label test, so there is a case, but the size is not
-derivable from this input and any number stated here would be invented.
+category labels, and one category can hold most of the volume.
+`brand.overlap_flag` measures branded conversions from the search terms report,
+which was not supplied, so the flag is uncomputed rather than crossed. There is
+a reason to look; there is no measured size, and any number stated here would
+be invented.
 
 What is also not clean: the CPA comparison. 492 is PMax cost over purchases
 only, while 20.95 is brand cost over all 148 of its conversions. The brand
@@ -159,12 +163,14 @@ how accounts end up with four months of changes nobody can evaluate.
 
 ## Step 6. Weekly readout, for the client
 
-"Last month the campaign spent 38,412 and reported 196 sales. Only 78 were
+"In July the campaign spent GBP 38,412 and reported 196 sales. Only 78 were
 actual purchases. The rest were baskets and mailing-list signups, which the
 account counts as sales worth 25 each, so the campaign has been buying the
 cheap ones. We are fixing that first.
 
-Separately, 15,138 went to 23 products that have not sold anything at all.
+Separately, GBP 15,138 went to 23 products that have not sold anything at all.
+(There are 24 products with no sales; the 24th has spent too little to be worth
+acting on, so this figure covers the 23 that have.)
 
 One decision for you: whether to keep spending on those 23. We would stop.
 Everything else can wait, and we are making the changes one at a time over the

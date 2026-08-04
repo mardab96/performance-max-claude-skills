@@ -41,8 +41,11 @@ answer is. Say which you used, every time.
    conversions, because one category can carry most of the volume. Report the
    label count as a label count, give any conversion figure as a wide range,
    and say the range comes from counting labels.
-4. Compare brand Search CPA against blended PMax CPA. A brand campaign buying
-   the same demand materially cheaper is the whole finding.
+4. Compare brand Search CPA against PMax CPA on THE SAME conversion basis.
+   This is the step that goes wrong most often: PMax CPA computed on purchases
+   only, against brand CPA computed on all its conversions, is not a comparison
+   and it fires `brand.cpa_gap_flag` falsely. Pick one basis, apply it to both,
+   and say which you picked.
 5. Check `brand.overlap_flag` and `brand.cpa_gap_flag`. Either one crossing is
    a case; both crossing is a strong case.
 6. Decide what the exclusion would actually cost. Brand exclusions in PMax
@@ -80,10 +83,11 @@ Input: PMax spend 42,000, 610 conversions, blended CPA 68.85. Brand Search
 spend 3,100, 148 conversions, CPA 20.95. No search terms report supplied;
 Search categories show 9 of 31 categories carrying the brand name.
 
-Reading: 9 of 31 is a count of category labels, not a conversion share. It
-crosses `brand.overlap_flag` on the label test, so there is a case to answer,
-but the size of it is genuinely unknown from this input. One branded category
-could hold most of the branded volume or almost none. Brand CPA at 20.95 is
+Reading: 9 of 31 is a count of category labels, not a conversion share.
+`brand.overlap_flag` measures branded conversions from the search terms report,
+so with labels alone it cannot be computed and it is not crossed; it is
+uncomputed. The label count is a reason to look, nothing more. One branded
+category could hold most of the branded volume or almost none. Brand CPA at 20.95 is
 30% of blended PMax CPA, below `brand.cpa_gap_flag`, and that comparison is
 solid because both figures are measured.
 

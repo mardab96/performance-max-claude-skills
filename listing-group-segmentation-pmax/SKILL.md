@@ -82,8 +82,7 @@ owner wants 6 campaigns. Margin runs 55-62% in four categories and 18-22% in
 two.
 
 Reading: 140 conversions divided by `conversion.volume_floor` supports about
-4.7 campaigns, and divided by `asset_group.volume_floor` about 9 to 14 asset
-groups. Six campaigns is over the ceiling, though not wildly. Category is the
+4.7 campaigns, and divided by `asset_group.volume_floor` 11.7 asset groups. Six campaigns is over the ceiling, though not wildly. Category is the
 wrong cut anyway, because four of the six share economics. Margin band is the
 right cut and produces exactly two segments, which the volume supports
 comfortably.

@@ -148,8 +148,9 @@ def analyse(rows, target_cpa=None, target_roas=None):
         # catalogue reaching 70% is ordinary retail shape, not concentration.
         "concentration_flag": (len(top_block) / len(rows) <= 0.20) if rows else False,
         "concentration_basis": (
-            "top %d of %d products (%.1f%% of catalogue) hold %.1f%% of spend; "
-            "flag requires the catalogue share to be 20%% or less"
+            "top %d of %d SPENDING products (%.1f%% of them) hold %.1f%% of spend; "
+            "flag requires that share to be 20%% or less. NOTE: spending products "
+            "are only those with cost in the export, not the full catalogue"
             % (
                 len(top_block),
                 len(rows),

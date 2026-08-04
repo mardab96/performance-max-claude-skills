@@ -42,8 +42,20 @@ Use exactly one per row:
 
 ## Confidence
 
-`high` / `medium` / `low`. Drop to `low` whenever the campaign is under
-`conversion.volume_floor` (see `thresholds.md`), and say that is why.
+Three values, each with a stated test, so two people reading the same evidence
+land on the same label.
+
+- **`high`** - the finding comes from an export, the period clears
+  `conversion.volume_floor`, no learning event sits inside it, and no
+  denominator had to be assumed. All four.
+- **`medium`** - one of those four is missing. Say which one in the row.
+- **`low`** - two or more are missing, OR the conversion signal audit failed,
+  OR the campaign is under `conversion.volume_floor`. Any one of these three is
+  enough on its own.
+
+A row labelled `high` with an assumed denominator is the most common way this
+scale gets abused. If you had to decide what a number was measured against,
+that is `medium` at best.
 
 ## Hard rules
 

@@ -33,8 +33,12 @@ the single most common suspicion about PMax.
    answered rather than refused. Ask for the channel performance report.
 2. Rank placements by impression volume. Mark each as plausible, questionable
    or implausible for the advertiser's actual audience.
-3. Cluster the questionable ones: mobile game apps, made-for-advertising
-   domains, kids content, autoplay video, parked pages.
+3. Group the questionable ones ONLY where the group is a real family per
+   `thresholds.md` (Denominators): one domain, one app, or one Google-defined
+   category. A theme you assembled yourself is not a family. If you do group,
+   the group must clear `placement.waste_flag` on its own and you must list its
+   members, because aggregating small families over the line is how a hunch
+   gets dressed as a rule.
 4. Cross-read against Search categories. A campaign whose search side looks
    sane while its placement side is full of games is spending its display and
    video budget somewhere the search intent never was.
@@ -43,9 +47,13 @@ the single most common suspicion about PMax.
    exclusions, content suitability settings, the mobile app category
    exclusions, and brand exclusions. Per-campaign placement exclusions are not
    available for PMax.
-6. Before recommending any exclusion, check whether that placement family has
-   ever produced anything. If the data cannot tell you, say the exclusion is a
-   judgement call and not a data-backed one.
+6. Before recommending any exclusion, be honest that the check you would want
+   is impossible. Per-placement conversions are not reported, so you can never
+   confirm a family produced nothing. That means EVERY exclusion this skill
+   produces is a judgement call, not a data-backed one, and the output must
+   carry that label rather than implying evidence it cannot have. What you can
+   do instead: check the channel performance report to size the channel the
+   family sits in, so at least the order of magnitude is known.
 
 ## Decision rules
 
@@ -81,9 +89,12 @@ Input: 2.1M impressions total. Top placements include a word-puzzle app
 (214k), a video-sharing app (156k), a recipe site (88k) and a set of parked
 domains (61k). The advertiser sells industrial fittings to procurement teams.
 
-Reading: three of the top four families have no plausible procurement
-audience, together about 20% of impressions. Cost is unknown and unknowable
-from this report.
+Reading: the puzzle app is 10.2% of placement-report impressions and the
+video app 7.4%, so both clear `placement.waste_flag` on their own. The recipe
+site is 4.2% and does not, so it is reported separately rather than folded in
+to make a bigger number; adding it to reach "about 20%" would be exactly the
+aggregation the threshold forbids. Cost per placement is unknown and
+unknowable from this report.
 
 Output: ranked table, then "app category exclusions, `do_now`". The
 parked-domain family sits at 2.9% of impressions, under the 5% bar, so it is

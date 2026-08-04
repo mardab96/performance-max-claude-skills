@@ -57,7 +57,7 @@ is fixed here rather than left to the reader:
 
 | Key | Value | Tag | Notes |
 |---|---|---|---|
-| `asset_group.volume_floor` | **12 conversions per month per group** | [heuristic] | Single value on purpose: a range here produces different group counts for the same account. Move to 15 for considered purchases with cycles over 30 days, to 10 for impulse retail, and say which you used. |
+| `asset_group.volume_floor` | **12 conversions per month per group** | [heuristic] | Single value on purpose: a range here produces different group counts for the same account. Recalibrate on ONE measurable test, the account's median days-to-conversion from its own lag report: over 30 days use 15, under 7 days use 10, anything between stays at 12. A mixed catalogue takes the median across all conversions, not a judgement about which products dominate. Say which value you used and the median it came from. |
 | `asset_group.theme_purity` | one theme or product line per group | [heuristic] | Mixed groups make the asset-to-query match unreadable. |
 | `listing_group.spend_concentration` | the top **20%** of SPENDING products by cost absorbing **70%+** of campaign spend | [heuristic] | Denominator is spending products, not the catalogue, per Denominators; the script prints the count it used. Both halves matter: a small slice of the catalogue taking most of the budget. 25% of products taking 70% is ordinary retail shape, not a flag. Healthy when those products beat target ROAS; a feed-mix constraint when they do not. Implemented in `../scripts/spend_concentration.py` as `concentration_flag`. |
 | `asset.required_minimum` | 3 headlines, 1 long headline, 2 descriptions, 1 landscape (1.91:1) image, 1 square (1:1) image; plus 1 logo and 1 business name when brand guidelines are off | [platform guidance] | Google's minimum for a servable asset group ([asset requirements](https://developers.google.com/google-ads/api/performance-max/asset-requirements), checked 2026-08-04). Video and portrait (4:5) images are **optional**. With brand guidelines enabled, logo and business name come from campaign-level brand assets instead of the group. **Retail exception:** on a campaign linked to Merchant Center, Google auto-generates missing assets from the feed and the group serves anyway, usually at poor ad strength. So on retail, below-minimum means "running on material nobody wrote", not "not running". |
@@ -97,6 +97,23 @@ point, not a rule; recalibrate and say which one you moved.
 | `audience.signal_cap` | more than **3** audience signals on one asset group, none of them first-party | [heuristic] | More signals is not more steering. One converter list outsteers five interest signals. |
 | `asset_group.fragmentation_flag` | more asset groups than monthly conversions divided by `asset_group.volume_floor` | [heuristic] | Same defect as running too many campaigns. Consolidate to the number the volume supports. |
 
+## Mechanism claims
+
+Numbers carry tags. Mechanisms did not, and mechanisms are what a client's
+analyst actually challenges. Every claim below is about how the platform
+behaves rather than about a number, and each one carries the same tagging and a
+check date. If a skill asserts a mechanism that is not here, that is a bug in
+the same way a bare number is.
+
+| Claim | Tag | Source, checked 2026-08-04 |
+|---|---|---|
+| Brand exclusions apply to Search, Shopping and YouTube search inventory, and not to Display, Discover or non-search YouTube | [platform guidance] | [brand exclusions](https://support.google.com/google-ads/answer/14505308) |
+| Campaign-level negative keywords are available for PMax, and cover Search and Shopping inventory but not YouTube search | [platform guidance] | [negative keywords in PMax](https://support.google.com/google-ads/answer/15726455) |
+| Per-campaign placement exclusions are not available for PMax; exclusions are account level | [platform guidance] | Google Ads UI and API, no campaign-scoped placement exclusion for this campaign type |
+| Audience signals are a hint about where to start, not a targeting restriction; the campaign serves outside them by design | [platform guidance] | [about audience signals](https://support.google.com/google-ads/answer/13480676) |
+| A missing portrait 4:5 image removes the group from placements that require that ratio | [heuristic] | Consistent with Google's asset specs but not stated by Google as a serving consequence. Treat as a practitioner reading. |
+| On a Merchant Center-linked campaign, Google auto-generates missing assets and the group serves anyway | [platform guidance] | [PMax for online sales with a product feed](https://developers.google.com/google-ads/api/performance-max/retail) |
+
 ## Reporting limits (not thresholds, but load-bearing facts)
 
 All three checked against Google documentation on 2026-08-04. This section is
@@ -129,6 +146,8 @@ for this pack to give confidently wrong advice. Re-check before trusting.
   2024 a PMax campaign automatically won against a standard Shopping campaign
   in the same account for the same product. Google removed that: the higher Ad
   Rank now serves, the same as between any other campaign types
-  ([change writeup](https://www.seroundtable.com/google-ads-pmax-priority-standard-shopping-38265.html)).
+  ([Google Ads Help: how Performance Max interacts with other campaigns in your account](https://support.google.com/google-ads/answer/13810170),
+  with [trade coverage of the change](https://www.seroundtable.com/google-ads-pmax-priority-standard-shopping-38265.html)
+  for the October 2024 timing; checked 2026-08-04).
   Most of the internet still repeats the old rule, which makes this a common
   source of wrong diagnosis rather than an obscure detail.

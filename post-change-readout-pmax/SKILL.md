@@ -16,8 +16,12 @@ building before enough time has passed to know anything.
 ## Required input
 
 - The change: what, when, and why, in one line.
-- Performance daily or weekly, covering at least the same span before and
-  after the change.
+- Performance weekly, covering exactly 8 weeks before the change and whatever
+  exists after it. Eight is fixed on purpose: the detection band is built from
+  the spread of the pre-change weeks, so a longer window with one outlier
+  widens the band and a shorter one narrows it, and two people pasting
+  different amounts of history get different answers about whether anything
+  happened. If fewer than 8 weeks exist, say so and treat detection as weaker.
 - The equivalent period last year, if the account is old enough.
 - Any promotions, price changes, stock outages or PR events in the window.
 - Auction insights or impression share trend, if available.
@@ -85,13 +89,16 @@ variance of 49-58, so something moved. But two other explanations sit in the
 window: last year showed the same seasonal direction, and a promotion ended
 two days before the change.
 
-Output: "Not readable until roughly 12 August." Three candidate causes,
-ordered: promotion ending (strongest, because the timing is closest and the
-mechanism is direct), seasonality (supported by last year), the conversion
-goal change (plausible but unmeasurable while learning is still running).
+Output: "Not readable until 12 August." Three candidate causes, listed and
+deliberately NOT ranked: the promotion ending on the 20th, the seasonal
+direction last year showed in the same weeks, and the conversion goal change on
+the 22nd. Ranking them would be attribution, and attribution inside
+`learning.duration` is what this skill exists to refuse. Naming a strongest
+candidate while calling the period unreadable is a hedge, not a finding.
+
 Revert decision: hold. Stop condition, if CPA is still above 65 on 12 August
 with the promotion effect washed out, revert the conversion goal and accept
-another learning period.
+another learning period. That is the date the ranking becomes possible.
 
 ## Guardrails
 

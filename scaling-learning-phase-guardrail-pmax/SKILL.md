@@ -20,6 +20,9 @@ whether it was the market, the season or the last edit.
 - Daily or weekly CPA and ROAS trend over at least the last 8 weeks.
 - Campaign start date and current daily budget.
 - Target CPA or target ROAS, if one is set.
+- Impression share lost to budget. Without it the starve-floor rule cannot
+  fire, and a budget recommendation made without it dies the moment anyone
+  opens the account.
 
 ## Analysis workflow
 
@@ -40,9 +43,11 @@ whether it was the market, the season or the last edit.
 4. Check whether the observation window is at least
    `learning.judgement_window`. Below that, a conclusion about a change is
    noise dressed as insight.
-5. Check `budget.starve_floor`. A campaign whose daily budget is small
-   relative to its own target CPA will sit in learning permanently regardless
-   of how patiently it is left alone.
+5. Check `budget.starve_floor`, then check whether the campaign is actually
+   constrained. The ratio alone proves nothing: a campaign under the floor that
+   is not losing impressions to budget is not spending what it already has, and
+   more budget changes nothing for it. Impression share lost to budget is the
+   corroboration, and without it you do not have a starvation finding.
 6. Size the next step from `budget.step`, with `budget.step_wait` between
    steps, and say what the plan looks like over the next month rather than
    giving a single number.
@@ -94,28 +99,31 @@ reading, not Google's wording, and the freeze below rests on it. The CPA rise st
 elapsed, well under `learning.judgement_window`, so the campaign is not yet
 readable.
 
-`budget.starve_floor` also fires and it changes the plan. At a target CPA of
-70 the floor is 700/day, and the campaign sits at 400 even after doubling. So
-this is a campaign that was starved before the change and is still starved
-after it. When two rules fire together, the freeze wins on timing and the
+`budget.starve_floor` fires on the ratio: at a target CPA of 70 the floor is
+700/day and the campaign sits at 400. But the ratio is only half the test, and
+the other half fails here. At roughly 90 conversions a month and a CPA near 94,
+this campaign spends about 8,500 a month, which is 280 a day against a budget of
+400. It is using two thirds of what it already has, so it is not
+budget-constrained and no impression share is being lost to budget. The
+starvation reading does not stand. When two rules fire together, the freeze wins on timing and the
 starve floor wins on direction: do nothing now, and when the window opens, the
 budget is the lever rather than the structure.
 
-Output: "Freeze, then feed it." No further changes until 16 to 30 August,
-which is `learning.judgement_window` from the 19 July reset; state both ends of
-that range rather than picking a date inside it, because the range is what the
-threshold gives you. Then re-read. If CPA has not returned toward 70, the
+Output: "Freeze, then feed it." No further changes until 30 August, which is
+`learning.judgement_window` from the 19 July reset. One date, not a range: the
+threshold is six weeks and the campaign does not clear
+`conversion.volume_floor` by 3x, so the recalibration to four weeks does not
+apply. Then re-read. If CPA has not returned toward 70, the
 conversion goal change is the suspect, not the budget.
 
-Then the budget. At 400/day against a 700 floor, steps of `budget.step` reach
-the floor in roughly four moves with `budget.step_wait` between them, which is
-most of a quarter. Say that out loud: either the budget goes up faster than
-`budget.step` and the campaign stays volatile, or it goes up at a safe rate and
-takes a quarter, or the target CPA comes down so the floor comes down with it.
-That third option is usually the real answer and it is the one nobody offers.
-It is also cheaper than it sounds: lowering the target value does not restart
-learning (`learning.target_change_note`), so it does not add a waiting period
-on top of the one already running.
+Then the budget, and the answer is not "raise it". The campaign is not
+spending the budget it has, so adding more buys nothing. The floor is telling
+you the target and the budget disagree, and the cheap side of that disagreement
+is the target: lowering it brings the floor down with it, and lowering a target
+VALUE does not restart learning (`learning.target_change_note`), so it costs no
+waiting period on top of the one already running. Raising budget on a campaign
+with impression share to spare is the recommendation that dies the moment a
+client's analyst opens the account.
 
 ## Guardrails
 

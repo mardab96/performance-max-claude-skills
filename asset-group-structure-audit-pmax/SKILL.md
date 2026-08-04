@@ -52,9 +52,15 @@ about to add a sixth group to a campaign that cannot feed the five it has.
 - Mixed theme (the "and" test fails) -> `approval_needed` on splitting, and
   state the cost: the new group starts learning from scratch
   (`learning.duration`).
-- Coverage below `asset.required_minimum` -> `do_now` on assets before any
-  structural change. Structure cannot fix a group Google has nothing to build
-  with.
+- Coverage below `asset.required_minimum` with NO Merchant Center feed ->
+  `do_now` on assets, and structural work waits. Structure cannot fix a group
+  that cannot serve.
+- Coverage below `asset.required_minimum` WITH a feed -> `do_now` on assets,
+  but structural work proceeds and the group counts as live. Google fills the
+  gaps from the feed, so the group is serving on material nobody wrote
+  (`asset.required_minimum`, retail exception). Calling a running retail group
+  dead in front of someone who can watch it spending is the fastest way to lose
+  the room.
 - Group count crossing `asset_group.fragmentation_flag` -> recommend
   consolidating to the number the volume supports.
 
@@ -74,13 +80,17 @@ conv, page /), "Brand" (9 conv, page /), "Summer promo" (4 conv, page
 /summer), "Accessories and spare parts" (2 conv, page /shop), "Test" (0 conv,
 page /, no video).
 
-Reading: 46 conversions supports 3.1 groups at the top of
-`asset_group.volume_floor` and 4.6 at the bottom, so five groups exceeds the
-ceiling at both ends and `asset_group.fragmentation_flag` fires either way.
-The account should be running three to four groups, not five. "Main" and
+Reading: 46 conversions divided by `asset_group.volume_floor` supports 3.8
+groups, so five exceeds the ceiling and `asset_group.fragmentation_flag` fires.
+The account should be running four groups, not five. (One number, not a range:
+the floor was collapsed to a single value precisely so this count cannot come
+out differently for two people on the same account.) "Main" and
 "Brand" share a landing page and neither has a distinct theme. "Accessories and
 spare parts" fails the "and" test. "Test" has 3 headlines and no long headline,
-which is below `asset.required_minimum`, so it cannot serve at all.
+which is below `asset.required_minimum`. This account has no Merchant Center
+feed, so that group genuinely cannot serve; on a retail account with a feed the
+same shortfall would mean it serves on auto-generated assets and still counts
+as live. Say which case you are in, every time.
 
 The order is forced here and it is worth naming: coverage outranks structure,
 so "Test" being unservable is dealt with first, and it is a coverage finding

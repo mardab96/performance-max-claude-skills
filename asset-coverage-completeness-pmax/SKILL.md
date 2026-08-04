@@ -34,6 +34,10 @@ or auto-generated assets are appearing that nobody wrote.
 - Ad strength per group.
 - Whether automatically created assets and auto-generated video are enabled.
 - The landing page per group.
+- Whether the campaign is linked to a Merchant Center feed. This decides what a
+  shortfall means and the skill cannot run correctly without it.
+- Whether brand guidelines are switched on, since that moves logo and business
+  name from the group to the campaign.
 
 Most of this is not exportable and has to be read off the interface per group.
 Say so if the user has many groups, because the transcription cost is real and
