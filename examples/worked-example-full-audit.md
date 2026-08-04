@@ -125,12 +125,16 @@ which was not supplied, so the flag is uncomputed rather than crossed. There is
 a reason to look; there is no measured size, and any number stated here would
 be invented.
 
-What is also not clean: the CPA comparison. 492 is PMax cost over purchases
-only, while 20.95 is brand cost over all 148 of its conversions. The brand
-campaign runs on the same account-level goals, so it is almost certainly
-carrying the same cart and newsletter inflation that step 1 found in PMax. Like
-for like, the brand figure would rise. The gap is real and large; the ratio is
-not 23:1 and should not be quoted as one.
+What is also not clean, until we fix it: 492 is PMax cost over purchases only,
+while 20.95 is brand cost over all 148 of its conversions. Comparing them is
+not a comparison. The workflow says pick one basis and apply it to both, so:
+on ALL primary conversions, PMax is 38,412/196 = 196.0 and brand is 20.95. The
+flag needs brand CPA under half of PMax CPA; 20.95 is 10.7% of 196.0, so it
+fires comfortably on a like-for-like basis.
+
+Stated basis: all primary conversions, both sides. The purchases-only figure of
+492 is not used for this comparison, and the 23:1 ratio that would come from
+mixing the two bases is not quoted anywhere.
 
 `do_now` on pulling the search terms report, which converts this whole step
 from an estimate into a number. Brand exclusions stay `approval_needed` and

@@ -82,7 +82,10 @@ page /, no video).
 
 Reading: 46 conversions divided by `asset_group.volume_floor` supports 3.8
 groups, so five exceeds the ceiling and `asset_group.fragmentation_flag` fires.
-The account should be running four groups, not five. (One number, not a range:
+The account should be running three groups: four would need 48 conversions and
+it has 46, so four crosses the same flag five did. Round the ceiling down, never
+up, because the flag fires on "more groups than the ceiling" and 4 is more than
+3.8. (One number, not a range:
 the floor was collapsed to a single value precisely so this count cannot come
 out differently for two people on the same account.) "Main" and
 "Brand" share a landing page and neither has a distinct theme. "Accessories and

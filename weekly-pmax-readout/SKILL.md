@@ -87,8 +87,8 @@ each one cost 87.50 against 57.45. Spend was flat.
 Two things happened in that week and I cannot yet tell you how much each one
 did. The promotion finished on the 20th, which removed the discount a lot of
 those sales were riding on. On the 22nd we changed what the campaign counts as
-a result, so it is relearning and its own numbers are unreliable until around
-the 12th.
+a result. Changes like that normally send it back into a learning period, so I
+am treating its own numbers as unreliable until around the 12th.
 
 One decision is worth making early: whether to repeat the promotion. If you
 want it back before the 12th, say so now, because running it during the

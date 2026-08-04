@@ -52,11 +52,20 @@ with it.**
 Rule 7 is the one people get wrong most often. "Add the missing brand variant"
 during a six-week window is fine. "Conclude the exclusions are working" is not.
 
-## Numbers
+## Numbers and mechanisms
 
 Every threshold lives in `references/thresholds.md` and nowhere else. Cite the
 key, do not restate the value. If you need a number that is not there, add it
 there first with a unit and a tag, then cite it.
+
+**The same rule now applies to mechanism claims**, meaning any statement about
+how the platform behaves rather than about a number. They live in the Mechanism
+claims table in the same file, with a tag and a source. A skill may explain a
+mechanism in its own words where that helps the reader, but it must point at
+the table when it does, exactly as it points at a threshold key. The reason is
+the one this pack learned the hard way with numbers: a claim restated in five
+files drifts in four of them, and a mechanism claim is the thing a client's
+analyst actually challenges.
 
 Two skills delegate arithmetic to `scripts/`. Use them rather than eyeballing
 the maths; the script and the skill are written to agree, and the script's

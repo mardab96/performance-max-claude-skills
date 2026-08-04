@@ -95,9 +95,20 @@ def load(path, metric):
     return series, metric_col
 
 
-def analyse(series, change_date):
-    before = [v for d, v in series if d < change_date]
+BASELINE_PERIODS = 8  # fixed by post-change-readout-pmax; see note in main()
+
+
+def analyse(series, change_date, baseline=BASELINE_PERIODS):
+    before_all = [v for d, v in series if d < change_date]
     after = [v for d, v in series if d >= change_date]
+
+    # The detection band is built from the spread of the pre-change periods, so
+    # its width depends on how much history was pasted in. Two people pasting 8
+    # and 12 weeks of the same account get opposite answers about whether
+    # anything happened. The skill fixes the window at 8; the script enforces
+    # it rather than trusting the caller, and reports what it discarded.
+    discarded = max(0, len(before_all) - baseline)
+    before = before_all[-baseline:]
 
     if len(before) < 3:
         raise SystemExit(
@@ -117,6 +128,16 @@ def analyse(series, change_date):
     detected = post_mean < band_low or post_mean > band_high
 
     return {
+        "baseline_periods_used": len(before),
+        "baseline_periods_discarded": discarded,
+        "baseline_note": (
+            "Baseline fixed at %d periods. %d older period(s) were discarded so "
+            "the detection band cannot widen with however much history was "
+            "pasted in." % (baseline, discarded)
+            if discarded
+            else "Baseline fixed at %d periods; the export supplied %d."
+            % (baseline, len(before))
+        ),
         "periods_before": len(before),
         "periods_after": len(after),
         "pre_mean": round(pre_mean, 2),

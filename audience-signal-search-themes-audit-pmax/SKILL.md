@@ -8,8 +8,9 @@ description: Reviews the audience signals and search themes feeding a Performanc
 Shared quality bar: `../references/output-standard.md`. All numbers cited here
 live in `../references/thresholds.md`.
 
-The most common misunderstanding this skill corrects: audience signals are a
-hint about where to start looking, not a targeting restriction. A campaign
+The most common misunderstanding this skill corrects (`thresholds.md`,
+Mechanism claims): audience signals are a hint about where to start looking,
+not a targeting restriction. A campaign
 will serve outside them and is supposed to.
 
 ## Use this skill when

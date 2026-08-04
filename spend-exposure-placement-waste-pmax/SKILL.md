@@ -62,9 +62,11 @@ the single most common suspicion about PMax.
   cannot be measured in advance.
 - A family below `placement.waste_flag` -> `monitor`, and say it is below the
   bar. Recommending an exclusion under the flag turns the rule into a hunch.
-- Mobile app inventory dominating impressions while the offer is B2B
-  -> `do_now` on app category exclusions. This is the highest-confidence call
-  in the skill.
+- A mobile app category, which is a Google-defined family and therefore a
+  legitimate grouping, crossing `placement.waste_flag` while the offer is B2B
+  -> `approval_needed` on app category exclusions. This is the strongest call
+  in the skill, and it is still a judgement call rather than a data-backed one,
+  because per-placement conversions do not exist (step 6). Label it as such.
 - Content exclusions already at the strictest setting and waste still visible
   -> `investigate`, and say plainly that PMax control ends here; the remaining
   option is campaign type, not campaign settings.

@@ -60,7 +60,9 @@ it is the reason this audit often does not get done.
    YouTube whether or not anyone approved it. Say this, and do not call it a
    compliance failure, because it is not one.
 4. Check image aspect ratios. Landscape and square are required; portrait 4:5
-   is optional but its absence removes the group from placements that need it,
+   is optional, and its absence is understood to remove the group from
+   placements that need it (`thresholds.md`, Mechanism claims, tagged
+   [heuristic] because Google does not state it as a serving consequence),
    which reads like a targeting problem and is not.
 5. Check headline variety, not just count. Five headlines saying the same thing
    give the system one message and four spares.
@@ -108,10 +110,17 @@ excellent. Group B: 5 headlines, 1 long headline, 5 descriptions, landscape and
 square only, logo and business name present, no video, strength good. Group C:
 3 headlines, no long headline, 2 descriptions, square only, logo and business
 name present, no video, strength poor. Automatically created assets on across
-the account.
+the account. **No Merchant Center feed on this campaign, and brand guidelines
+are off.** Both of those are stated because both change the answer: without a
+feed a below-minimum group genuinely cannot serve, and with brand guidelines on
+the logo and business name would come from the campaign rather than the group.
 
 Reading against `asset.required_minimum`: Group C fails twice, on the missing
-long headline and the missing landscape image, so it cannot serve. Groups A and
+long headline and the missing landscape image. With no feed on this campaign,
+that means it cannot serve at all. On an otherwise identical retail campaign
+with a feed, the same two gaps would mean Google fills them from the product
+data and the group runs on material nobody wrote, which is urgent for a
+different reason and does not block structural work. Groups A and
 B both clear the minimum in full. Group B's 5 descriptions are the platform
 ceiling, so that is the top of the range, not a shortfall.
 

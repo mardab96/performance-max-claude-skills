@@ -35,8 +35,10 @@ building before enough time has passed to know anything.
    number. A change that moves CPA less than the pre-period week-to-week swing
    has not been detected at all. Run
    `../scripts/variance_check.py <series.csv> --change-date <YYYY-MM-DD> --metric cpa`
-   for this step; it answers detection only, and refuses the question when
-   there are fewer than three pre-change periods. Attribution stays here.
+   for this step. It answers detection only, refuses the question when there
+   are fewer than three pre-change periods, and trims the baseline to the fixed
+   8 weeks itself rather than trusting whatever was pasted in, reporting how
+   many older periods it discarded. Attribution stays here.
 3. Check seasonality against last year's same weeks. A decline that also
    happened last year is a season, and reverting the change will not fix it.
 4. Check for confounders inside the window: promotions, stock, price, site

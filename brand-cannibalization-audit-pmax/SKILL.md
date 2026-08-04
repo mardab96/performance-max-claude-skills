@@ -59,9 +59,12 @@ answer is. Say which you used, every time.
 - Branded share above `brand.overlap_flag` with an active brand Search
   campaign -> `approval_needed` on brand exclusions, with the ROAS drop stated
   up front.
-- Brand Search CPA below `brand.cpa_gap_flag` relative to blended PMax CPA ->
-  the gap is the money being left on the table. Quantify it as
-  (branded PMax conversions x CPA difference), labelled an estimate.
+- Brand Search CPA below `brand.cpa_gap_flag` relative to PMax CPA on the SAME
+  conversion basis -> the gap is the money being left on the table. State which
+  basis you used before quoting the ratio; purchases-only against
+  all-conversions is not a comparison. Quantify the gap as (branded PMax
+  conversions x CPA difference) only when the branded count is measured rather
+  than inferred, and label it an estimate either way.
 - No brand Search campaign running -> exclusions are usually the wrong move.
   The demand still has to be bought somewhere; recommend building the brand
   campaign first, then re-running this skill.

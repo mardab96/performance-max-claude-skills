@@ -105,11 +105,13 @@ the other half fails here. At roughly 90 conversions a month and a CPA near 94,
 this campaign spends about 8,500 a month, which is 280 a day against a budget of
 400. It is using two thirds of what it already has, so it is not
 budget-constrained and no impression share is being lost to budget. The
-starvation reading does not stand. When two rules fire together, the freeze wins on timing and the
-starve floor wins on direction: do nothing now, and when the window opens, the
-budget is the lever rather than the structure.
+starvation reading does not stand. So only one rule actually fires here, not
+two: the freeze. The starve floor looked like it fired on the ratio and then
+failed its corroboration, which is not the same as a collision. `AGENTS.md`
+precedence rule 6 resolves two rules that both genuinely fire; it does not
+promote a flag that failed its own second half.
 
-Output: "Freeze, then feed it." No further changes until 30 August, which is
+Output: "Freeze, then look at the target." No further changes until 30 August, which is
 `learning.judgement_window` from the 19 July reset. One date, not a range: the
 threshold is six weeks and the campaign does not clear
 `conversion.volume_floor` by 3x, so the recalibration to four weeks does not
