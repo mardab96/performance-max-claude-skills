@@ -95,9 +95,10 @@ Reading: 9 of 31 is a count of category labels, not a conversion share.
 `brand.overlap_flag` measures branded conversions from the search terms report,
 so with labels alone it cannot be computed and it is not crossed; it is
 uncomputed. The label count is a reason to look, nothing more. One branded
-category could hold most of the branded volume or almost none. Brand CPA at 20.95 is
-30% of blended PMax CPA, below `brand.cpa_gap_flag`, and that comparison is
-solid because both figures are measured.
+category could hold most of the branded volume or almost none. Brand CPA at
+20.95 is 30% of PMax CPA on the same basis, below `brand.cpa_gap_flag`, and
+that comparison is solid because both figures are measured on all primary
+conversions and the basis is stated.
 
 Output: "Cannibalization case: confirmed in kind, unknown in size." The cheap
 comparison is real: brand demand is being bought at 20.95 in one campaign and
