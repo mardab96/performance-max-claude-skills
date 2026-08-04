@@ -45,9 +45,11 @@ answer is. Say which you used, every time.
    This is the step that goes wrong most often: PMax CPA computed on purchases
    only, against brand CPA computed on all its conversions, is not a comparison
    and it fires `brand.cpa_gap_flag` falsely. Pick one basis, apply it to both,
-   and say which you picked. The word "blended" is banned in this output for
-   the same reason: it reads as a single agreed figure while meaning whatever
-   the writer happened to divide by.
+   and say which you picked. Do not describe a campaign CPA as "blended": it
+   reads as a single agreed figure while meaning whatever the writer happened
+   to divide by. Write "CPA on all primary conversions" or "CPA on purchases",
+   never the shorthand. (Describing whole-ACCOUNT performance as blended is
+   fine and means something different.)
 5. Check `brand.overlap_flag` and `brand.cpa_gap_flag`. Either one crossing is
    a case; both crossing is a strong case.
 6. Decide what the exclusion would actually cost. Brand exclusions in PMax
@@ -84,8 +86,9 @@ Then `What this could not see`, `Missing data`, `Approval gates`.
 
 ## Practical example
 
-Input: PMax spend 42,000, 610 conversions, blended CPA 68.85. Brand Search
-spend 3,100, 148 conversions, CPA 20.95. No search terms report supplied;
+Input: PMax spend 42,000, 610 primary conversions, CPA on all primary
+conversions 68.85. Brand Search spend 3,100, 148 primary conversions, CPA
+20.95. Both sides on the same basis, stated up front. No search terms report supplied;
 Search categories show 9 of 31 categories carrying the brand name.
 
 Reading: 9 of 31 is a count of category labels, not a conversion share.
