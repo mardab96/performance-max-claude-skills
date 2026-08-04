@@ -81,18 +81,27 @@ Reader is the client, who owns the budget decision.
 
 Output:
 
-"Last week was worse than the one before, and two things caused it. Sales came
-in at 96 against 141, and each one cost 87.50 against 57.45. The promotion
-finished on the 20th, which removed the discount that was carrying a lot of
-those sales. On the 22nd we changed what the campaign counts as a result, so
-it is currently relearning and its numbers will be unreliable for another
-two weeks or so. Spend was flat at 8,400.
+"Last week was worse than the one before. Sales came in at 96 against 141, and
+each one cost 87.50 against 57.45. Spend was flat.
 
-Nothing needs a decision from you this week. Around 12 August we will know
-whether the change is working, and if it is not we will put it back. If you
-want the promotion repeated before then, that is the one call worth making
-early, because it would sit on top of the relearning and make both harder to
-read."
+Two things happened in that week and I cannot yet tell you how much each one
+did. The promotion finished on the 20th, which removed the discount a lot of
+those sales were riding on. On the 22nd we changed what the campaign counts as
+a result, so it is relearning and its own numbers are unreliable until around
+the 12th.
+
+One decision is worth making early: whether to repeat the promotion. If you
+want it back before the 12th, say so now, because running it during the
+relearning makes both harder to read and I would rather choose deliberately
+than by accident. Everything else waits until the 12th, when I will know
+whether the change is working and put it back if it is not."
+
+Note what this does and does not do. It reports the movement, because the
+numbers are real. It refuses to attribute the movement, because two candidate
+causes sit in a window the campaign is still relearning through. And it names
+exactly one decision rather than opening with "nothing needs you" and then
+producing a decision two sentences later, which is the most common way this
+readout goes wrong.
 
 ## Guardrails
 
